@@ -33,7 +33,6 @@ class AnimationOrchestrator extends InheritedWidget
 
   @override
   void startAnimations() {
-    print('startAnimations ' + _callbacks.length.toString());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _callbacks.forEach((startAnimation) {
         startAnimation();
@@ -44,12 +43,11 @@ class AnimationOrchestrator extends InheritedWidget
   @override
   void register(VoidCallback startAnimation) {
     _callbacks.add(startAnimation);
-    print('registered ' + _callbacks.length.toString());
   }
 
   static AnimationOrchestrator of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AnimationOrchestrator>() ??
-      AnimationOrchestrator(speedFactor: 3.0);
+      AnimationOrchestrator(speedFactor: 1.0);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
