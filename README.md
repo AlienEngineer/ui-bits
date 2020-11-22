@@ -1,5 +1,7 @@
 # ui_bits
 
+![Flutter](https://github.com/AlienEngineer/ui-bits/workflows/Flutter/badge.svg?branch=develop)
+
 A UI components(bits) library
 
 ## Getting Started
