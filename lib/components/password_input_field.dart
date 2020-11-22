@@ -4,18 +4,18 @@ import 'package:ui_bits/animations/animations.dart';
 import 'package:ui_bits/components/inputs.dart';
 
 class PasswordInputField extends StatefulWidget {
-  final String initialValue;
   final Duration fadeInDelay;
   final Duration fadeInDuration;
   final FieldLabels messages;
   final AnimationRegistry animateAfter;
+  final Field<String> field;
 
   const PasswordInputField(
     this.messages, {
-    this.initialValue,
     this.animateAfter = const StubRegistry(),
     this.fadeInDelay = const Duration(milliseconds: 700),
     this.fadeInDuration = const Duration(milliseconds: 150),
+    this.field,
   });
 
   @override
@@ -29,7 +29,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: _obscureText,
-      initialValue: widget.initialValue,
+      controller: widget.field?.controller,
       decoration: InputDecoration(
         labelText: widget.messages.label,
         prefixIcon: InputFieldIcon(widget.messages.icon),
