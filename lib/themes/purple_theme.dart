@@ -104,7 +104,7 @@ class PurpleThemeFactory {
           style: BorderStyle.none,
         ),
       ),
-      border: new OutlineInputBorder(
+      border: OutlineInputBorder(
         borderRadius: roundBorderRadius,
       ),
     );
