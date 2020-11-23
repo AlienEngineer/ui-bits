@@ -1,3 +1,5 @@
+## [0.0.3] 
+- getting published automated
 ## [0.0.2] 
 - created multiple animations
 ## [0.0.1] 
