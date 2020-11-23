@@ -27,3 +27,7 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+      - name: Publish package
+        run: pub publish -f
+        if: contains('refs/heads/master', github.ref)
