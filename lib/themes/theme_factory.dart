@@ -4,13 +4,37 @@ extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
 }
 
-class PurpleThemeFactory {
-  ThemeData makeTheme() {
+class ThemeFactory {
+  ThemeData makeBlueTheme() {
     var primaryColor = Colors.deepPurple;
     var secondaryColor = Colors.grey;
     var backgroundColor = Colors.white;
     var labelColor = Colors.black87.withOpacity(0.4);
 
+    return makeTheme(
+      primaryColor,
+      backgroundColor,
+      secondaryColor,
+      labelColor,
+    );
+  }
+
+  ThemeData makePurpleTheme() {
+    var primaryColor = Colors.deepPurple;
+    var secondaryColor = Colors.grey;
+    var backgroundColor = Colors.white;
+    var labelColor = Colors.black87.withOpacity(0.4);
+
+    return makeTheme(
+      primaryColor,
+      backgroundColor,
+      secondaryColor,
+      labelColor,
+    );
+  }
+
+  ThemeData makeTheme(MaterialColor primaryColor, Color backgroundColor,
+      MaterialColor secondaryColor, Color labelColor) {
     var theme = ThemeData(
       colorScheme: ColorScheme.fromSwatch(
         brightness: Brightness.light,
