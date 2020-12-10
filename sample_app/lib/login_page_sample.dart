@@ -1,9 +1,49 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ui_bits/ui_bits.dart';
+import 'dart:math';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class LoginPageSample extends StatefulWidget {
+  @override
+  _LoginPageSampleState createState() => _LoginPageSampleState();
+}
+
+class _LoginPageSampleState extends State<LoginPageSample> {
+  final AnimationOrchestrator loginCardInputs = AnimationOrchestrator();
+  final AnimationOrchestrator flipAnimation = AnimationOrchestrator();
+
+  @override
+  void initState() {
+    super.initState();
+
+    flipAnimation.startAnimations();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FlipAnimation(
+      duration: const Duration(milliseconds: 700),
+      onComplete: loginCardInputs,
+      startAfter: flipAnimation.delayedInMillis(150),
+      child: LoginCard(
+        startInputAnimationsAfter: loginCardInputs.delayedInMillis(500),
+        onTap: () => _showDialog(),
+      ),
+    );
+  }
+
+  void _showDialog({String message = "tapped"}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message),
+        );
+      },
+    );
+  }
+}
 
 class LoginCardLabels {
   final String loginLabel;
@@ -89,81 +129,6 @@ class LoginCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Catalog',
-      theme: PurpleThemeFactory().makeTheme(),
-      home: Catalog(title: 'Flutter Components Catalog'),
-    );
-  }
-}
-
-class Catalog extends StatefulWidget {
-  Catalog({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _CatalogState createState() => _CatalogState();
-}
-
-class _CatalogState extends State<Catalog> {
-  final AnimationOrchestrator loginCardInputs = AnimationOrchestrator();
-  final AnimationOrchestrator flipAnimation = AnimationOrchestrator();
-
-  @override
-  void initState() {
-    super.initState();
-
-    flipAnimation.startAnimations();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(25.0),
-              child: FlipAnimation(
-                duration: const Duration(milliseconds: 700),
-                onComplete: loginCardInputs,
-                startAfter: flipAnimation.delayedInMillis(150),
-                child: LoginCard(
-                  startInputAnimationsAfter:
-                      loginCardInputs.delayedInMillis(500),
-                  onTap: () => _showDialog(),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showDialog({String message = "tapped"}) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: new Text(message),
-        );
-      },
     );
   }
 }

@@ -6,12 +6,12 @@ extension ContextExtensions on BuildContext {
 
 class ThemeFactory {
   ThemeData makeBlueTheme() {
-    var primaryColor = Colors.deepPurple;
+    var primaryColor = Colors.blue;
     var secondaryColor = Colors.grey;
     var backgroundColor = Colors.white;
     var labelColor = Colors.black87.withOpacity(0.4);
 
-    return makeTheme(
+    return _makeTheme(
       primaryColor,
       backgroundColor,
       secondaryColor,
@@ -25,7 +25,7 @@ class ThemeFactory {
     var backgroundColor = Colors.white;
     var labelColor = Colors.black87.withOpacity(0.4);
 
-    return makeTheme(
+    return _makeTheme(
       primaryColor,
       backgroundColor,
       secondaryColor,
@@ -33,8 +33,12 @@ class ThemeFactory {
     );
   }
 
-  ThemeData makeTheme(MaterialColor primaryColor, Color backgroundColor,
-      MaterialColor secondaryColor, Color labelColor) {
+  ThemeData _makeTheme(
+    Color primaryColor,
+    Color backgroundColor,
+    Color secondaryColor,
+    Color labelColor,
+  ) {
     var theme = ThemeData(
       colorScheme: ColorScheme.fromSwatch(
         brightness: Brightness.light,
@@ -50,7 +54,7 @@ class ThemeFactory {
       cardColor: Color.alphaBlend(
         backgroundColor.withOpacity(0.7),
         secondaryColor.withOpacity(0.4),
-      ), // context: Copy | Cut | Paste
+      ), // context: Copy | Cut | P// aste
       textSelectionColor: secondaryColor,
       hintColor: labelColor,
       highlightColor: Colors.amberAccent,
@@ -96,7 +100,7 @@ class ThemeFactory {
       subtitle1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       subtitle2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       caption: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      bodyText1: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
+      bodyText1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       bodyText2: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
       headline1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       headline2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
