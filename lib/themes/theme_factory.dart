@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 
 extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
+
+  BitSizes get sizes => BitTheme.of(this).size;
 }
 
 class ThemeFactory {
+  Widget makeHome({Widget child}) {
+    return BitTheme(
+      child: child,
+      size: BitSizes(
+        mediumSmall: 16.0,
+        medium: 20.0,
+      ),
+    );
+  }
+
   ThemeData makeBlueTheme() {
     var primaryColor = Colors.blue;
     var secondaryColor = Colors.grey;
@@ -54,7 +66,8 @@ class ThemeFactory {
       cardColor: Color.alphaBlend(
         backgroundColor.withOpacity(0.7),
         secondaryColor.withOpacity(0.4),
-      ), // context: Copy | Cut | P// aste
+      ),
+      // context: Copy | Cut | P// aste
       textSelectionColor: secondaryColor,
       hintColor: labelColor,
       highlightColor: Colors.amberAccent,
@@ -85,7 +98,8 @@ class ThemeFactory {
   }
 
   static FloatingActionButtonThemeData _buildFloatingActionButtonThemeData(
-      ThemeData theme) {
+    ThemeData theme,
+  ) {
     return FloatingActionButtonThemeData(
       backgroundColor: theme.primaryColor,
       elevation: 4.0,
@@ -137,4 +151,33 @@ class ThemeFactory {
       ),
     );
   }
+}
+
+class BitTheme extends InheritedWidget {
+  final BitSizes size;
+
+  const BitTheme({
+    Key key,
+    this.size,
+    Widget child,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return false;
+  }
+
+  static BitTheme of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BitTheme>();
+  }
+}
+
+class BitSizes {
+  final double medium;
+  final double mediumSmall;
+
+  const BitSizes({
+    this.mediumSmall,
+    this.medium,
+  });
 }

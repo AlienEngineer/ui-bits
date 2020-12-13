@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
-import 'package:flutter/services.dart';
-import 'login_page_sample.dart';
+
 import 'carousel_page_sample.dart';
+import 'login_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,10 +18,14 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.landscapeLeft,
     ]);
 
+    var themeFactory = ThemeFactory();
+
     return MaterialApp(
       title: 'Catalog',
-      theme: ThemeFactory().makeBlueTheme(),
-      home: Catalog(title: 'Flutter Components Catalog'),
+      theme: themeFactory.makeBlueTheme(),
+      home: themeFactory.makeHome(
+        child: Catalog(title: 'Flutter Components Catalog'),
+      ),
     );
   }
 }

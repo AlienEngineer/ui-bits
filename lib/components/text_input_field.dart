@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/components/inputs.dart';
+import 'package:ui_bits/components/components.dart';
 
 class TextInputField extends StatelessWidget {
   final FieldLabels messages;

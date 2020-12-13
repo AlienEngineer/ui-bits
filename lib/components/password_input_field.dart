@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/animations/animations.dart';
-import 'package:ui_bits/components/inputs.dart';
+import 'package:ui_bits/components/components.dart';
 
 class PasswordInputField extends StatefulWidget {
   final Duration fadeInDelay;

@@ -1,8 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/ui_bits.dart';
-import 'dart:math';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ui_bits/ui_bits.dart';
 
 class LoginPageSample extends StatefulWidget {
   @override
@@ -78,24 +79,10 @@ class LoginCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final cardWidth = min(deviceSize.width * 0.75, 360.0);
-    const cardPadding = 16.0;
+    final cardPadding = context.sizes.mediumSmall;
     final textFieldWidth = cardWidth - cardPadding * 2;
 
-    return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          width: 1.2,
-          color: context.theme.primaryColor,
-        ),
-      ),
-      padding: EdgeInsets.only(
-        left: cardPadding,
-        right: cardPadding,
-        bottom: cardPadding,
-        top: cardPadding + 10,
-      ),
+    return BitCard(
       width: cardWidth,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
