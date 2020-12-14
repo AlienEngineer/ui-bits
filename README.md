@@ -6,11 +6,18 @@ A UI components(bits) library
 
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+### Register Theme:
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```dart
+    var themeFactory = ThemeFactory();
+
+    return MaterialApp(
+      title: 'Catalog',
+      theme: themeFactory.makeBlueTheme(),
+      home: themeFactory.makeHome(
+        child: Catalog(title: 'Flutter Components Catalog'),
+      ),
+    );
+```
+
+

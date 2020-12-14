@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/components/components.dart';
 
-class TextInputField extends StatelessWidget {
+class BitTextInputField extends StatelessWidget {
   final FieldLabels messages;
   final Field<String> field;
 
-  const TextInputField(
+  const BitTextInputField(
     this.messages, {
     this.field,
   });
@@ -18,7 +18,7 @@ class TextInputField extends StatelessWidget {
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
         labelText: messages.label,
-        prefixIcon: InputFieldIcon(messages.icon),
+        prefixIcon: BitInputFieldIcon(messages.icon),
       ),
     );
   }

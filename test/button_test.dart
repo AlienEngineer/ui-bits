@@ -8,7 +8,7 @@ void main() {
     var wasCalled = false;
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
-        body: PrimaryButton(
+        body: BitPrimaryButton(
           onTap: () => wasCalled = true,
           label: 'myButton',
         ),
@@ -16,7 +16,7 @@ void main() {
     ));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(PrimaryButton));
+    await tester.tap(find.byType(BitPrimaryButton));
 
     expect(wasCalled, isTrue);
   });

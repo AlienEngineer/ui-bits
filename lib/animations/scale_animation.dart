@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/animations/animations.dart';
 
-class ScaleAnimation extends StatefulWidget {
+class BitScaleAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Curve curve;
   final AnimationRegistry animateAfter;
 
-  const ScaleAnimation({
+  const BitScaleAnimation({
     this.child,
     this.duration = const Duration(milliseconds: 1150),
     this.curve = Curves.linearToEaseOut,
@@ -15,10 +15,10 @@ class ScaleAnimation extends StatefulWidget {
   });
 
   @override
-  _ScaleAnimationState createState() => _ScaleAnimationState();
+  _BitScaleAnimationState createState() => _BitScaleAnimationState();
 }
 
-class _ScaleAnimationState extends State<ScaleAnimation>
+class _BitScaleAnimationState extends State<BitScaleAnimation>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
 

@@ -2,22 +2,22 @@ import 'package:flutter/widgets.dart';
 
 import 'animations_orchestrator.dart';
 
-class FadeInAnimation extends StatefulWidget {
+class BitFadeInAnimation extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final AnimationRegistry animateAfter;
 
-  const FadeInAnimation({
+  const BitFadeInAnimation({
     this.child,
     this.duration = const Duration(milliseconds: 150),
     this.animateAfter = const StubRegistry(),
   });
 
   @override
-  _FadeInAnimationState createState() => _FadeInAnimationState();
+  _BitFadeInAnimationState createState() => _BitFadeInAnimationState();
 }
 
-class _FadeInAnimationState extends State<FadeInAnimation> {
+class _BitFadeInAnimationState extends State<BitFadeInAnimation> {
   var opacity = 0.0;
 
   @override

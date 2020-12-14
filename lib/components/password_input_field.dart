@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:ui_bits/animations/animations.dart';
 import 'package:ui_bits/components/components.dart';
 
-class PasswordInputField extends StatefulWidget {
+class BitPasswordInputField extends StatefulWidget {
   final Duration fadeInDelay;
   final Duration fadeInDuration;
   final FieldLabels messages;
   final AnimationRegistry animateAfter;
   final Field<String> field;
 
-  const PasswordInputField(
+  const BitPasswordInputField(
     this.messages, {
     this.animateAfter = const StubRegistry(),
     this.fadeInDelay = const Duration(milliseconds: 700),
@@ -19,10 +19,10 @@ class PasswordInputField extends StatefulWidget {
   });
 
   @override
-  _PasswordInputFieldState createState() => _PasswordInputFieldState();
+  _BitPasswordInputFieldState createState() => _BitPasswordInputFieldState();
 }
 
-class _PasswordInputFieldState extends State<PasswordInputField> {
+class _BitPasswordInputFieldState extends State<BitPasswordInputField> {
   var _obscureText = true;
 
   @override
@@ -32,7 +32,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       controller: widget.field?.controller,
       decoration: InputDecoration(
         labelText: widget.messages.label,
-        prefixIcon: InputFieldIcon(widget.messages.icon),
+        prefixIcon: BitInputFieldIcon(widget.messages.icon),
         suffixIcon: _buildSuffixIcon(context),
       ),
     );
@@ -41,13 +41,13 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   Widget _buildSuffixIcon(BuildContext context) {
     return GestureDetector(
       onTap: () => setState(() => _obscureText = !_obscureText),
-      child: FadeInAnimation(
+      child: BitFadeInAnimation(
         duration: widget.fadeInDuration,
         animateAfter: widget.animateAfter,
-        child: ToggleAnimation(
+        child: BitToggleAnimation(
           _obscureText,
-          InputFieldIcon(Icons.visibility),
-          InputFieldIcon(Icons.visibility_off),
+          BitInputFieldIcon(Icons.visibility),
+          BitInputFieldIcon(Icons.visibility_off),
         ),
       ),
     );
