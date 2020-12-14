@@ -8,7 +8,7 @@ A UI components(bits) library
 
 ### Register Theme:
 
-```
+```dart
     var themeFactory = ThemeFactory();
 
     return MaterialApp(
@@ -19,3 +19,5 @@ A UI components(bits) library
       ),
     );
 ```
+
+
