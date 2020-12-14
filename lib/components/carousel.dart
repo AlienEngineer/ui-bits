@@ -21,6 +21,10 @@ class _CarouselState extends State<Carousel> {
 
   @override
   Widget build(BuildContext context) {
+    if (shouldSkipBuild()) {
+      return Container();
+    }
+
     return SingleChildScrollView(
       physics: ClampingScrollPhysics(),
       controller: _controller,
@@ -34,6 +38,8 @@ class _CarouselState extends State<Carousel> {
       ),
     );
   }
+
+  bool shouldSkipBuild() => widget.children == null || widget.children.isEmpty;
 
   Iterable<Widget> buildChildren() sync* {
     yield widget.children.first;

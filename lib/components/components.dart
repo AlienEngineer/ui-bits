@@ -6,3 +6,4 @@ export 'primary_button.dart';
 export 'text_input_field.dart';
 export 'carousel.dart';
 export 'card.dart';
+export 'thumbnail.dart';

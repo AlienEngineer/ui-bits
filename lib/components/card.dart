@@ -21,10 +21,7 @@ class BitCard extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(context.sizes.medium),
-        border: Border.all(
-          width: 1.2,
-          color: context.theme.primaryColor,
-        ),
+        border: context.borders.round,
       ),
       padding: EdgeInsets.all(context.sizes.mediumSmall),
       child: child,

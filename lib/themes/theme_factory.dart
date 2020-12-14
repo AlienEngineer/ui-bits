@@ -4,6 +4,12 @@ extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   BitSizes get sizes => BitTheme.of(this).size;
+
+  BitBorders get borders {
+    var widgetBorders = BitTheme.of(this).borders;
+    widgetBorders.setContext(this);
+    return widgetBorders;
+  }
 }
 
 class ThemeFactory {
@@ -14,6 +20,7 @@ class ThemeFactory {
         mediumSmall: 16.0,
         medium: 20.0,
       ),
+      borders: BitBorders(),
     );
   }
 
@@ -155,10 +162,12 @@ class ThemeFactory {
 
 class BitTheme extends InheritedWidget {
   final BitSizes size;
+  final BitBorders borders;
 
   const BitTheme({
     Key key,
     this.size,
+    this.borders,
     Widget child,
   }) : super(key: key, child: child);
 
@@ -180,4 +189,19 @@ class BitSizes {
     this.mediumSmall,
     this.medium,
   });
+}
+
+class BitBorders {
+  BuildContext context;
+
+  Border get round {
+    return Border.all(
+      width: 1.2,
+      color: context.theme.primaryColor,
+    );
+  }
+
+  void setContext(BuildContext buildContext) {
+    context = buildContext;
+  }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 
 class CarouselPageSample extends StatefulWidget {
   @override
@@ -7,26 +10,42 @@ class CarouselPageSample extends StatefulWidget {
 }
 
 class _CarouselPageState extends State<CarouselPageSample> {
+  Uint8List image;
+
+  @override
+  void initState() {
+    super.initState();
+    networkImageToByte("https://picsum.photos/200/200").then((value) {
+      setState(() {
+        image = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = 200.0;
     var height = width * 1.25;
     return Carousel(
-      children: [
-        BitCard(child: Text('My Test 1'), width: width, height: height),
-        BitCard(child: Text('My Test 2'), width: width, height: height),
-        BitCard(child: Text('My Test 3'), width: width, height: height),
-        BitCard(child: Text('My Test 4'), width: width, height: height),
-        BitCard(child: Text('My Test 5'), width: width, height: height),
-        BitCard(child: Text('My Test 6'), width: width, height: height),
-        BitCard(child: Text('My Test 7'), width: width, height: height),
-        BitCard(child: Text('My Test 8'), width: width, height: height),
-        BitCard(child: Text('My Test 9'), width: width, height: height),
-        BitCard(child: Text('My Test 10'), width: width, height: height),
-        BitCard(child: Text('My Test 11'), width: width, height: height),
-        BitCard(child: Text('My Test 12'), width: width, height: height),
-        BitCard(child: Text('My Test 13'), width: width, height: height),
-      ],
+      children: Iterable<int>.generate(10)
+          .where((_) => image != null)
+          .map((_) => BitCard(
+                child: BitThumbnail(
+                  width: width,
+                  image: image,
+                ),
+                width: width,
+                height: height,
+              ))
+          .toList(),
     );
+  }
+
+  Future<Uint8List> networkImageToByte(String path) async {
+    HttpClient httpClient = HttpClient();
+    var request = await httpClient.getUrl(Uri.parse(path));
+    var response = await request.close();
+    Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+    return bytes;
   }
 }
