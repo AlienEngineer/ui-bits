@@ -2,16 +2,35 @@ import 'package:flutter/material.dart';
 
 extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
+
+  BitSizes get sizes => BitTheme.of(this).size;
+
+  BitBorders get borders {
+    var widgetBorders = BitTheme.of(this).borders;
+    widgetBorders.setContext(this);
+    return widgetBorders;
+  }
 }
 
 class ThemeFactory {
+  Widget makeHome({Widget child}) {
+    return BitTheme(
+      child: child,
+      size: BitSizes(
+        mediumSmall: 16.0,
+        medium: 20.0,
+      ),
+      borders: BitBorders(),
+    );
+  }
+
   ThemeData makeBlueTheme() {
-    var primaryColor = Colors.deepPurple;
+    var primaryColor = Colors.blue;
     var secondaryColor = Colors.grey;
     var backgroundColor = Colors.white;
     var labelColor = Colors.black87.withOpacity(0.4);
 
-    return makeTheme(
+    return _makeTheme(
       primaryColor,
       backgroundColor,
       secondaryColor,
@@ -25,7 +44,7 @@ class ThemeFactory {
     var backgroundColor = Colors.white;
     var labelColor = Colors.black87.withOpacity(0.4);
 
-    return makeTheme(
+    return _makeTheme(
       primaryColor,
       backgroundColor,
       secondaryColor,
@@ -33,8 +52,12 @@ class ThemeFactory {
     );
   }
 
-  ThemeData makeTheme(MaterialColor primaryColor, Color backgroundColor,
-      MaterialColor secondaryColor, Color labelColor) {
+  ThemeData _makeTheme(
+    Color primaryColor,
+    Color backgroundColor,
+    Color secondaryColor,
+    Color labelColor,
+  ) {
     var theme = ThemeData(
       colorScheme: ColorScheme.fromSwatch(
         brightness: Brightness.light,
@@ -50,7 +73,8 @@ class ThemeFactory {
       cardColor: Color.alphaBlend(
         backgroundColor.withOpacity(0.7),
         secondaryColor.withOpacity(0.4),
-      ), // context: Copy | Cut | Paste
+      ),
+      // context: Copy | Cut | P// aste
       textSelectionColor: secondaryColor,
       hintColor: labelColor,
       highlightColor: Colors.amberAccent,
@@ -81,7 +105,8 @@ class ThemeFactory {
   }
 
   static FloatingActionButtonThemeData _buildFloatingActionButtonThemeData(
-      ThemeData theme) {
+    ThemeData theme,
+  ) {
     return FloatingActionButtonThemeData(
       backgroundColor: theme.primaryColor,
       elevation: 4.0,
@@ -96,7 +121,7 @@ class ThemeFactory {
       subtitle1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       subtitle2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       caption: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      bodyText1: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
+      bodyText1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       bodyText2: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
       headline1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
       headline2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
@@ -132,5 +157,51 @@ class ThemeFactory {
         borderRadius: roundBorderRadius,
       ),
     );
+  }
+}
+
+class BitTheme extends InheritedWidget {
+  final BitSizes size;
+  final BitBorders borders;
+
+  const BitTheme({
+    Key key,
+    this.size,
+    this.borders,
+    Widget child,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    return false;
+  }
+
+  static BitTheme of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BitTheme>();
+  }
+}
+
+class BitSizes {
+  final double medium;
+  final double mediumSmall;
+
+  const BitSizes({
+    this.mediumSmall,
+    this.medium,
+  });
+}
+
+class BitBorders {
+  BuildContext context;
+
+  Border get round {
+    return Border.all(
+      width: 1.2,
+      color: context.theme.primaryColor,
+    );
+  }
+
+  void setContext(BuildContext buildContext) {
+    context = buildContext;
   }
 }
