@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ui_bits/animations/animations.dart';
 
 class Matrix {

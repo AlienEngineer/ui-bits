@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+
 import 'animations_orchestrator.dart';
 
 class TimeInterval {
