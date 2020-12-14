@@ -24,7 +24,7 @@ class TimeInterval {
   }
 }
 
-class WidthAnimation extends StatefulWidget {
+class BitWidthAnimation extends StatefulWidget {
   final TimeInterval interval;
   final Widget child;
   final double width;
@@ -33,7 +33,7 @@ class WidthAnimation extends StatefulWidget {
   final Duration duration;
   final AnimationRegistry animateAfter;
 
-  const WidthAnimation({
+  const BitWidthAnimation({
     this.child,
     this.width,
     this.interval = const TimeInterval.first(),
@@ -44,10 +44,10 @@ class WidthAnimation extends StatefulWidget {
   });
 
   @override
-  _WidthAnimationState createState() => _WidthAnimationState();
+  _BitWidthAnimationState createState() => _BitWidthAnimationState();
 }
 
-class _WidthAnimationState extends State<WidthAnimation> {
+class _BitWidthAnimationState extends State<BitWidthAnimation> {
   var targetWidget = 0.0;
 
   @override

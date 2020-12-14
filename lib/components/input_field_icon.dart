@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class InputFieldIcon extends StatelessWidget {
+class BitInputFieldIcon extends StatelessWidget {
   final IconData iconData;
 
-  const InputFieldIcon(this.iconData);
+  const BitInputFieldIcon(this.iconData);
 
   @override
   Widget build(BuildContext context) {

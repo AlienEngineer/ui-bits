@@ -53,10 +53,10 @@ void main() {
 
 Map<String, dynamic> makeTextInputField(Field<String> field) {
   return {
-    'type': TextInputField,
+    'type': BitTextInputField,
     'widget': MaterialApp(
       home: Scaffold(
-        body: TextInputField(
+        body: BitTextInputField(
           FieldLabels(
             label: 'myLabel',
             icon: Icons.add,
@@ -70,10 +70,10 @@ Map<String, dynamic> makeTextInputField(Field<String> field) {
 
 Map<String, dynamic> makePasswordInputField(Field<String> field) {
   return {
-    'type': PasswordInputField,
+    'type': BitPasswordInputField,
     'widget': MaterialApp(
       home: Scaffold(
-        body: PasswordInputField(
+        body: BitPasswordInputField(
           FieldLabels(
             label: 'myLabel',
             icon: Icons.add,

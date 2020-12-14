@@ -17,13 +17,13 @@ class Matrix {
       Matrix4.identity()..setEntry(3, 2, weight);
 }
 
-class FlipAnimation extends StatefulWidget {
+class BitFlipAnimation extends StatefulWidget {
   final Widget child;
   final AnimationStarter onComplete;
   final AnimationRegistry startAfter;
   final Duration duration;
 
-  const FlipAnimation({
+  const BitFlipAnimation({
     this.child,
     this.onComplete,
     this.startAfter,
@@ -31,10 +31,10 @@ class FlipAnimation extends StatefulWidget {
   });
 
   @override
-  _FlipAnimationState createState() => _FlipAnimationState();
+  _BitFlipAnimationState createState() => _BitFlipAnimationState();
 }
 
-class _FlipAnimationState extends State<FlipAnimation>
+class _BitFlipAnimationState extends State<BitFlipAnimation>
     with SingleTickerProviderStateMixin {
   Animation<double> _flipAnimation;
   AnimationController controller;

@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 
 import 'animations_orchestrator.dart';
 
-class ToggleAnimation extends StatelessWidget {
+class BitToggleAnimation extends StatelessWidget {
   final bool toggle;
   final Widget topChild;
   final Widget bottomChild;
   final Duration duration;
 
-  const ToggleAnimation(
+  const BitToggleAnimation(
     this.toggle,
     this.topChild,
     this.bottomChild, {

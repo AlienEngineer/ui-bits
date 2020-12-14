@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-class PrimaryButton extends StatefulWidget {
+class BitPrimaryButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
 
-  const PrimaryButton({
+  const BitPrimaryButton({
     this.label,
     this.onTap,
   });
 
   @override
-  _PrimaryButtonState createState() => _PrimaryButtonState();
+  _BitPrimaryButtonState createState() => _BitPrimaryButtonState();
 }
 
-class _PrimaryButtonState extends State<PrimaryButton> {
+class _BitPrimaryButtonState extends State<BitPrimaryButton> {
   var _width = 0.0;
   var _height = 0.0;
 
