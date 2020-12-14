@@ -25,7 +25,7 @@ class AnimationOrchestrator extends InheritedWidget
 
   AnimationOrchestrator({
     this.speedFactor = 1.0,
-  }) : _callbacks = List<VoidCallback>();
+  }) : _callbacks = <VoidCallback>[];
 
   Duration apply(Duration duration) {
     return duration * speedFactor;
