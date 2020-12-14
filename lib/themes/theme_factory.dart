@@ -65,8 +65,11 @@ class ThemeFactory {
       accentColor: primaryColor,
       primaryColor: primaryColor,
       primarySwatch: primaryColor,
-      cursorColor: primaryColor,
-      textSelectionHandleColor: primaryColor,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: primaryColor,
+        selectionColor: primaryColor,
+        selectionHandleColor: primaryColor,
+      ),
       backgroundColor: backgroundColor,
       canvasColor: backgroundColor,
       scaffoldBackgroundColor: backgroundColor,
@@ -74,8 +77,7 @@ class ThemeFactory {
         backgroundColor.withOpacity(0.7),
         secondaryColor.withOpacity(0.4),
       ),
-      // context: Copy | Cut | P// aste
-      textSelectionColor: secondaryColor,
+      // context: Copy | Cut | Paste
       hintColor: labelColor,
       highlightColor: Colors.amberAccent,
       focusColor: Colors.amberAccent,
