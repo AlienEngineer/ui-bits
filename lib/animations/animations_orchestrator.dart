@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_bits/ui_bits.dart';
 
 abstract class AnimationStarter {
   void startAnimations();
@@ -67,6 +68,10 @@ extension AnimationRegistryExtensions on AnimationRegistry {
   AnimationRegistry delayed(Duration delay) => DelayedAnimation(this, delay);
   AnimationRegistry delayedInMillis(int delay) =>
       this.delayed(Duration(milliseconds: delay));
+  AnimationRegistry delayedShort(BuildContext context) =>
+      this.delayed(context.animation.short);
+  AnimationRegistry delayedExtraShort(BuildContext context) =>
+      this.delayed(context.animation.extraShort);
 }
 
 class DelayedAnimation implements AnimationRegistry {
@@ -85,4 +90,19 @@ class DelayedAnimation implements AnimationRegistry {
       Future.delayed(_delay).then((value) => startAnimation());
     });
   }
+}
+
+abstract class BitAnimation {
+  AnimationRegistry get animateAfter;
+  Widget wrapWidget({Widget child});
+}
+
+class BitNoAnimation implements BitAnimation {
+  const BitNoAnimation();
+
+  @override
+  Widget wrapWidget({Widget child}) => child;
+
+  @override
+  AnimationRegistry get animateAfter => const StubRegistry();
 }

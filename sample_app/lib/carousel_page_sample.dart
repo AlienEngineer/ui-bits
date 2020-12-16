@@ -29,14 +29,13 @@ class _CarouselPageState extends State<CarouselPageSample> {
     return Carousel(
       children: Iterable<int>.generate(10)
           .where((_) => image != null)
-          .map((_) => BitCard(
-                child: BitThumbnail(
-                  width: width,
-                  image: image,
-                ),
-                width: width,
-                height: height,
-              ))
+          .map(
+            (_) => BitCard(
+              children: [BitThumbnail(width: width, image: image)],
+              width: width,
+              height: height,
+            ),
+          )
           .toList(),
     );
   }

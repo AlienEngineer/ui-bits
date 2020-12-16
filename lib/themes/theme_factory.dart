@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ui_bits/components/card.dart';
 
 extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -10,6 +11,10 @@ extension ContextExtensions on BuildContext {
     widgetBorders.setContext(this);
     return widgetBorders;
   }
+
+  BitAnimationDurations get animation => BitTheme.of(this).animations;
+
+  double calculateCardWidth() => CardSize.of(this)?.calculateWidth(this);
 }
 
 class ThemeFactory {
@@ -17,10 +22,12 @@ class ThemeFactory {
     return BitTheme(
       child: child,
       size: BitSizes(
+        small: 10.0,
         mediumSmall: 16.0,
         medium: 20.0,
       ),
       borders: BitBorders(),
+      animations: BitAnimationDurations(),
     );
   }
 
@@ -165,17 +172,19 @@ class ThemeFactory {
 class BitTheme extends InheritedWidget {
   final BitSizes size;
   final BitBorders borders;
+  final BitAnimationDurations animations;
 
   const BitTheme({
     Key key,
     this.size,
     this.borders,
+    this.animations,
     Widget child,
   }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
-    return false;
+    return oldWidget as BitTheme != this;
   }
 
   static BitTheme of(BuildContext context) {
@@ -183,11 +192,27 @@ class BitTheme extends InheritedWidget {
   }
 }
 
+class BitAnimationDurations {
+  final Duration extraShort;
+  final Duration short;
+  final Duration medium;
+  final Duration long;
+
+  BitAnimationDurations({
+    this.extraShort = const Duration(milliseconds: 150),
+    this.short = const Duration(milliseconds: 250),
+    this.medium = const Duration(milliseconds: 700),
+    this.long = const Duration(milliseconds: 1150),
+  });
+}
+
 class BitSizes {
+  final double small;
   final double medium;
   final double mediumSmall;
 
   const BitSizes({
+    this.small,
     this.mediumSmall,
     this.medium,
   });

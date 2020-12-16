@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/animations/animations.dart';
+import 'package:ui_bits/animations/internal_animations.dart';
 import 'package:ui_bits/components/components.dart';
+import 'package:ui_bits/ui_bits.dart';
 
-class BitPasswordInputField extends StatefulWidget {
-  final Duration fadeInDelay;
-  final Duration fadeInDuration;
+class BitInputPasswordField extends StatefulWidget {
   final FieldLabels messages;
-  final AnimationRegistry animateAfter;
   final Field<String> field;
+  final BitAnimation animation;
 
-  const BitPasswordInputField(
+  const BitInputPasswordField(
     this.messages, {
-    this.animateAfter = const StubRegistry(),
-    this.fadeInDelay = const Duration(milliseconds: 700),
-    this.fadeInDuration = const Duration(milliseconds: 150),
     this.field,
+    this.animation = const BitNoAnimation(),
   });
 
   @override
-  _BitPasswordInputFieldState createState() => _BitPasswordInputFieldState();
+  _BitInputPasswordFieldState createState() => _BitInputPasswordFieldState();
 }
 
-class _BitPasswordInputFieldState extends State<BitPasswordInputField> {
+class _BitInputPasswordFieldState extends State<BitInputPasswordField> {
   var _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: _obscureText,
-      controller: widget.field?.controller,
-      decoration: InputDecoration(
-        labelText: widget.messages.label,
-        prefixIcon: BitInputFieldIcon(widget.messages.icon),
-        suffixIcon: _buildSuffixIcon(context),
+    return widget.animation.wrapWidget(
+      child: TextFormField(
+        obscureText: _obscureText,
+        controller: widget.field?.controller,
+        decoration: InputDecoration(
+          labelText: widget.messages.label,
+          prefixIcon: BitInputFieldIcon(widget.messages.icon),
+          suffixIcon: _buildSuffixIcon(context),
+        ),
       ),
     );
   }
@@ -42,8 +41,8 @@ class _BitPasswordInputFieldState extends State<BitPasswordInputField> {
     return GestureDetector(
       onTap: () => setState(() => _obscureText = !_obscureText),
       child: BitFadeInAnimation(
-        duration: widget.fadeInDuration,
-        animateAfter: widget.animateAfter,
+        duration: context.animation.short,
+        animateAfter: widget.animation.animateAfter,
         child: BitToggleAnimation(
           _obscureText,
           BitInputFieldIcon(Icons.visibility),

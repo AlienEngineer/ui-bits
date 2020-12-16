@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_bits/internal_ui_bits.dart';
 
 class BitPrimaryButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
+  final BitAnimation animation;
 
   const BitPrimaryButton({
     this.label,
     this.onTap,
+    this.animation = const BitNoAnimation(),
   });
 
   @override
@@ -60,20 +63,22 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
     final theme = Theme.of(context);
     final buttonTheme = theme.floatingActionButtonTheme;
 
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Material(
-        shape: buttonTheme.shape,
-        color: theme.primaryColor,
-        shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
-        elevation: buttonTheme.elevation ?? 0.1,
-        child: Container(
-          width: _width,
-          height: _height,
-          alignment: Alignment.center,
-          child: Text(
-            widget.label,
-            style: theme.textTheme.button,
+    return widget.animation.wrapWidget(
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Material(
+          shape: buttonTheme.shape,
+          color: theme.primaryColor,
+          shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
+          elevation: buttonTheme.elevation ?? 0.1,
+          child: Container(
+            width: _width,
+            height: _height,
+            alignment: Alignment.center,
+            child: Text(
+              widget.label,
+              style: theme.textTheme.button,
+            ),
           ),
         ),
       ),

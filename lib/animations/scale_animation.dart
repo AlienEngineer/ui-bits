@@ -1,13 +1,33 @@
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/animations/animations.dart';
+import 'package:ui_bits/animations/internal_animations.dart';
+import 'package:ui_bits/ui_bits.dart';
 
-class BitScaleAnimation extends StatefulWidget {
+class BitScaleAnimation extends BitAnimation {
+  final AnimationRegistry animateAfter;
+
+  BitScaleAnimation({
+    this.animateAfter,
+  });
+
+  @override
+  Widget wrapWidget({Widget child}) {
+    return Builder(builder: (context) {
+      return BitScaleAnimationWidget(
+        child: child,
+        animateAfter: animateAfter,
+        duration: context.animation.long,
+      );
+    });
+  }
+}
+
+class BitScaleAnimationWidget extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Curve curve;
   final AnimationRegistry animateAfter;
 
-  const BitScaleAnimation({
+  const BitScaleAnimationWidget({
     this.child,
     this.duration = const Duration(milliseconds: 1150),
     this.curve = Curves.linearToEaseOut,
@@ -15,10 +35,11 @@ class BitScaleAnimation extends StatefulWidget {
   });
 
   @override
-  _BitScaleAnimationState createState() => _BitScaleAnimationState();
+  _BitScaleAnimationWidgetState createState() =>
+      _BitScaleAnimationWidgetState();
 }
 
-class _BitScaleAnimationState extends State<BitScaleAnimation>
+class _BitScaleAnimationWidgetState extends State<BitScaleAnimationWidget>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
 
@@ -27,7 +48,7 @@ class _BitScaleAnimationState extends State<BitScaleAnimation>
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: AnimationOrchestrator.of(context).apply(widget.duration),
+      duration: widget.duration,
     );
     widget.animateAfter.register(() {
       animationController

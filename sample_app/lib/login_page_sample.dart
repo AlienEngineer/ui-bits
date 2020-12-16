@@ -15,22 +15,21 @@ class _LoginPageSampleState extends State<LoginPageSample> {
   final AnimationOrchestrator flipAnimation = AnimationOrchestrator();
 
   @override
-  void initState() {
+  initState() {
     super.initState();
-
     flipAnimation.startAnimations();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FlipAnimation(
-      duration: const Duration(milliseconds: 700),
-      onComplete: loginCardInputs,
-      startAfter: flipAnimation.delayedInMillis(150),
-      child: LoginCard(
-        startInputAnimationsAfter: loginCardInputs.delayedInMillis(500),
-        onTap: () => _showDialog(),
-      ),
+    return Column(
+      children: [
+        LoginCard(
+          triggerFlip: flipAnimation.delayedInMillis(300),
+          triggerInput: loginCardInputs,
+          onTap: () => _showDialog(),
+        ),
+      ],
     );
   }
 
@@ -67,55 +66,50 @@ class LoginCardLabels {
 class LoginCard extends StatelessWidget {
   final VoidCallback onTap;
   final LoginCardLabels messages;
-  final AnimationRegistry startInputAnimationsAfter;
+  final AnimationOrchestrator triggerInput;
+  final AnimationRegistry triggerFlip;
 
   const LoginCard({
     this.onTap,
+    this.triggerInput,
     this.messages = const LoginCardLabels(),
-    this.startInputAnimationsAfter = const StubRegistry(),
+    this.triggerFlip = const StubRegistry(),
   });
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final cardWidth = min(deviceSize.width * 0.75, 360.0);
-    final cardPadding = context.sizes.mediumSmall;
-    final textFieldWidth = cardWidth - cardPadding * 2;
 
     return BitCard(
-      width: cardWidth,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          WidthAnimation(
-            duration: const Duration(milliseconds: 1150),
-            animateAfter: startInputAnimationsAfter,
-            width: textFieldWidth,
-            child: TextInputField(messages.userField),
-          ),
-          SizedBox(height: 10),
-          WidthAnimation(
-            duration: const Duration(milliseconds: 1150),
-            animateAfter: startInputAnimationsAfter.delayedInMillis(150),
-            width: textFieldWidth,
-            child: PasswordInputField(
-              messages.passwordField,
-              animateAfter: startInputAnimationsAfter.delayedInMillis(300),
-            ),
-          ),
-          SizedBox(height: 10),
-          Center(
-            child: ScaleAnimation(
-              duration: const Duration(milliseconds: 1150),
-              animateAfter: startInputAnimationsAfter,
-              child: PrimaryButton(
-                onTap: onTap,
-                label: messages.loginLabel,
-              ),
-            ),
-          ),
-        ],
+      animation: BitAnimations.flip(
+        onComplete: triggerInput,
+        animateAfter: triggerFlip,
       ),
+      width: cardWidth,
+      children: [
+        BitInputTextField(
+          messages.userField,
+          animation: BitAnimations.width(animateAfter: triggerInput),
+        ),
+        SizedBox(height: context.sizes.small),
+        BitInputPasswordField(
+          messages.passwordField,
+          animation: BitAnimations.width(
+            animateAfter: triggerInput.delayedExtraShort(context),
+          ),
+        ),
+        SizedBox(height: context.sizes.small),
+        Center(
+          child: BitPrimaryButton(
+            onTap: onTap,
+            label: messages.loginLabel,
+            animation: BitAnimations.scale(
+              animateAfter: triggerInput.delayedShort(context),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

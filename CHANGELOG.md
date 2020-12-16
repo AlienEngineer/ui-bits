@@ -1,3 +1,12 @@
+## [0.0.5]
+- Renamed:
+  - BitTextInputField -> BitInputTextField
+  - BitPasswordInputField -> BitInputPasswordField
+- BitInputTextField, BitInputPasswordField, BitPrimaryButton, BitCard
+  - Receives a BitAnimation (BitWidthAnimation, BitScaleAnimation, BitFlipAnimation)
+- Removed:
+  - BitWidthAnimation, BitScaleAnimation, BitFlipAnimation
+  
 ## [0.0.4] 
 - Implemented Widgets:
   - BitCarousel

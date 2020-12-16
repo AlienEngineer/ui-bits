@@ -2,7 +2,29 @@ import 'dart:math';
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/animations/animations.dart';
+import 'package:ui_bits/internal_ui_bits.dart';
+
+class BitFlipAnimation implements BitAnimation {
+  final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
+
+  BitFlipAnimation({
+    this.onComplete,
+    this.animateAfter = const StubRegistry(),
+  });
+
+  @override
+  Widget wrapWidget({Widget child}) {
+    return Builder(builder: (context) {
+      return BitFlipAnimationWidget(
+        duration: context.animation.long,
+        onComplete: onComplete,
+        animateAfter: animateAfter,
+        child: child,
+      );
+    });
+  }
+}
 
 class Matrix {
   /// Perspective makes objects that are farther away appear smaller
@@ -17,24 +39,24 @@ class Matrix {
       Matrix4.identity()..setEntry(3, 2, weight);
 }
 
-class BitFlipAnimation extends StatefulWidget {
+class BitFlipAnimationWidget extends StatefulWidget {
   final Widget child;
   final AnimationStarter onComplete;
-  final AnimationRegistry startAfter;
+  final AnimationRegistry animateAfter;
   final Duration duration;
 
-  const BitFlipAnimation({
+  const BitFlipAnimationWidget({
     this.child,
     this.onComplete,
-    this.startAfter,
+    this.animateAfter = const StubRegistry(),
     this.duration = const Duration(milliseconds: 700),
   });
 
   @override
-  _BitFlipAnimationState createState() => _BitFlipAnimationState();
+  _BitFlipAnimationWidgetState createState() => _BitFlipAnimationWidgetState();
 }
 
-class _BitFlipAnimationState extends State<BitFlipAnimation>
+class _BitFlipAnimationWidgetState extends State<BitFlipAnimationWidget>
     with SingleTickerProviderStateMixin {
   Animation<double> _flipAnimation;
   AnimationController controller;
@@ -45,7 +67,7 @@ class _BitFlipAnimationState extends State<BitFlipAnimation>
 
     controller = AnimationController(
       vsync: this,
-      duration: AnimationOrchestrator.of(context).apply(widget.duration),
+      duration: widget.duration,
     );
 
     _flipAnimation = Tween<double>(begin: pi / 2.0, end: 0).animate(
@@ -56,7 +78,7 @@ class _BitFlipAnimationState extends State<BitFlipAnimation>
       ),
     );
 
-    widget.startAfter.register(() {
+    widget.animateAfter.register(() {
       controller
         ..value = 0.0
         ..forward();

@@ -1,6 +1,26 @@
 import 'package:flutter/widgets.dart';
-
 import 'animations_orchestrator.dart';
+import 'package:ui_bits/ui_bits.dart';
+
+class BitWidthAnimation implements BitAnimation {
+  final AnimationRegistry animateAfter;
+
+  BitWidthAnimation({
+    this.animateAfter = const StubRegistry(),
+  });
+
+  @override
+  Widget wrapWidget({Widget child}) {
+    return Builder(builder: (context) {
+      return BitWidthAnimationWidget(
+        duration: context.animation.long,
+        animateAfter: animateAfter,
+        width: context.calculateCardWidth(),
+        child: child,
+      );
+    });
+  }
+}
 
 class TimeInterval {
   final double begin;
@@ -8,9 +28,6 @@ class TimeInterval {
 
   const TimeInterval.first()
       : begin = 0.0,
-        end = 1.0;
-  const TimeInterval.second()
-      : begin = 0.1,
         end = 1.0;
 
   Interval toInterval(Curve curve) {
@@ -24,7 +41,7 @@ class TimeInterval {
   }
 }
 
-class BitWidthAnimation extends StatefulWidget {
+class BitWidthAnimationWidget extends StatefulWidget {
   final TimeInterval interval;
   final Widget child;
   final double width;
@@ -33,7 +50,7 @@ class BitWidthAnimation extends StatefulWidget {
   final Duration duration;
   final AnimationRegistry animateAfter;
 
-  const BitWidthAnimation({
+  const BitWidthAnimationWidget({
     this.child,
     this.width,
     this.interval = const TimeInterval.first(),
@@ -44,10 +61,11 @@ class BitWidthAnimation extends StatefulWidget {
   });
 
   @override
-  _BitWidthAnimationState createState() => _BitWidthAnimationState();
+  _BitWidthAnimationWidgetState createState() =>
+      _BitWidthAnimationWidgetState();
 }
 
-class _BitWidthAnimationState extends State<BitWidthAnimation> {
+class _BitWidthAnimationWidgetState extends State<BitWidthAnimationWidget> {
   var targetWidget = 0.0;
 
   @override
@@ -63,7 +81,7 @@ class _BitWidthAnimationState extends State<BitWidthAnimation> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: targetWidget,
-      duration: AnimationOrchestrator.of(context).apply(widget.duration),
+      duration: widget.duration,
       curve: widget.interval.toInterval(widget.curve),
       child: widget.child,
     );

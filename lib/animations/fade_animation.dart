@@ -33,7 +33,7 @@ class _BitFadeInAnimationState extends State<BitFadeInAnimation> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: opacity,
-      duration: AnimationOrchestrator.of(context).apply(widget.duration),
+      duration: widget.duration,
       child: widget.child,
       curve: Curves.easeIn,
     );

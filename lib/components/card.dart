@@ -3,28 +3,61 @@ import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
 
 class BitCard extends StatelessWidget {
-  final Widget child;
+  final List<Widget> children;
   final double width;
   final double height;
+  final BitAnimation animation;
 
   BitCard({
-    this.child,
     this.width,
     this.height,
+    this.children,
+    this.animation = const BitNoAnimation(),
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(context.sizes.medium),
-        border: context.borders.round,
+    return animation.wrapWidget(
+      child: Container(
+        alignment: Alignment.center,
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(context.sizes.medium),
+          border: context.borders.round,
+        ),
+        padding: EdgeInsets.all(context.sizes.mediumSmall),
+        child: CardSize(
+          width: width,
+          height: height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children,
+          ),
+        ),
       ),
-      padding: EdgeInsets.all(context.sizes.mediumSmall),
-      child: child,
     );
   }
+}
+
+class CardSize extends InheritedWidget {
+  final double width;
+  final double height;
+
+  CardSize({
+    this.width,
+    this.height,
+    Widget child,
+  }) : super(child: child);
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return false;
+  }
+
+  static CardSize of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<CardSize>();
+
+  double calculateWidth(BuildContext context) =>
+      width - context.sizes.mediumSmall * 2;
 }
