@@ -12,7 +12,8 @@ extension ContextExtensions on BuildContext {
     return widgetBorders;
   }
 
-  BitAnimationDurations get animation => BitTheme.of(this).animations;
+  BitAnimationDurations get animation =>
+      BitTheme.of(this)?.animations ?? BitAnimationDurations();
 
   double calculateCardWidth() => CardSize.of(this)?.calculateWidth(this);
 }
