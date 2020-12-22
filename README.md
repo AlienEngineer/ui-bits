@@ -34,19 +34,13 @@ A UI components(bits) library
 
 #### Options
 
-top: `BitEdgeInsetsOptions.top`
-
-bottom: `BitEdgeInsetsOptions.bottom`
-
-left: `BitEdgeInsetsOptions.left`
-
-right: `BitEdgeInsetsOptions.right`
-
-all: `BitEdgeInsetsOptions.all`
-
-none: `BitEdgeInsetsOptions.none`
-
-combine:
+- top: `BitEdgeInsetsOptions.top`
+- bottom: `BitEdgeInsetsOptions.bottom`
+- left: `BitEdgeInsetsOptions.left`
+- right: `BitEdgeInsetsOptions.right`
+- all: `BitEdgeInsetsOptions.all`
+- none: `BitEdgeInsetsOptions.none`
+- combine:
 ```dart
     // sums the given insets, in this case left and right.
     BitEdgeInsetsOptions.combine([
