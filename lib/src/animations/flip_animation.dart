@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/rendering.dart';
-import 'package:ui_bits/src/internal_ui_bits.dart';
+import 'package:ui_bits/src/ui_bits_internal.dart';
 
 class BitFlipAnimation implements BitAnimation {
   final AnimationRegistry animateAfter;

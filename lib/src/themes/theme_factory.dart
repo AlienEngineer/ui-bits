@@ -1,4 +1,4 @@
-import 'package:ui_bits/src/internal_ui_bits.dart';
+import 'package:ui_bits/src/ui_bits_internal.dart';
 
 extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
