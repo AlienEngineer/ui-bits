@@ -87,6 +87,12 @@ class _BitFlipAnimationWidgetState extends State<BitFlipAnimationWidget>
   }
 
   @override
+  dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _flipAnimation,
