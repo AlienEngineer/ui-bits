@@ -31,6 +31,7 @@ class _CarouselPageState extends State<CarouselPageSample> {
           .where((_) => image != null)
           .map(
             (_) => BitCard(
+              padding: BitEdgeInsetsOptions.none,
               children: [BitThumbnail(width: width, image: image)],
               width: width,
               height: height,

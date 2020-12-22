@@ -1,3 +1,6 @@
+## [0.0.7]
+- BitSmallPadding
+
 ## [0.0.6]
 - Fix: added missing dispose to FlipAnimation
 

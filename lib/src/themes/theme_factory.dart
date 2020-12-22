@@ -22,6 +22,7 @@ class ThemeFactory {
     return BitTheme(
       child: child,
       size: BitSizes(
+        none: 0.0,
         small: 10.0,
         mediumSmall: 16.0,
         medium: 20.0,
@@ -207,11 +208,13 @@ class BitAnimationDurations {
 }
 
 class BitSizes {
+  final double none;
   final double small;
   final double medium;
   final double mediumSmall;
 
   const BitSizes({
+    this.none,
     this.small,
     this.mediumSmall,
     this.medium,
