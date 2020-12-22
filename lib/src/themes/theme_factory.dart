@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ui_bits/components/card.dart';
+import 'package:ui_bits/src/internal_ui_bits.dart';
 
 extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);

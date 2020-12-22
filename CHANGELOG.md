@@ -23,6 +23,6 @@
 ## [0.0.3] 
 - getting published automated
 ## [0.0.2] 
-- created multiple animations
+- created multiple src.animations
 ## [0.0.1] 
-- created multiple animations
+- created multiple src.animations
