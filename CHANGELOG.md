@@ -1,5 +1,8 @@
 ## [0.0.7]
 - BitSmallPadding
+  - BitEdgeInsetsOptions
+- BitText
+  - BitTextStyles
 
 ## [0.0.6]
 - Fix: added missing dispose to FlipAnimation

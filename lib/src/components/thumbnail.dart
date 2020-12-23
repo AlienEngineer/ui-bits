@@ -15,8 +15,8 @@ class BitThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return BitCard(
+      padding: BitEdgeInsetsOptions.none,
       children: [
         BitSmallPadding(
           child: Center(child: CircleImageWidget(width: width, image: image)),
@@ -28,9 +28,11 @@ class BitThumbnail extends StatelessWidget {
             BitEdgeInsetsOptions.left,
             BitEdgeInsetsOptions.right,
           ]),
-          child: Text('Ricardo Nunes'),
+          child: BitText('Ricardo Nunes'),
         )
       ],
+      width: width,
+      height: width * 1.25,
     );
   }
 }

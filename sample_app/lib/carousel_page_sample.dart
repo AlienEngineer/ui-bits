@@ -24,19 +24,10 @@ class _CarouselPageState extends State<CarouselPageSample> {
 
   @override
   Widget build(BuildContext context) {
-    var width = 200.0;
-    var height = width * 1.25;
     return Carousel(
       children: Iterable<int>.generate(10)
           .where((_) => image != null)
-          .map(
-            (_) => BitCard(
-              padding: BitEdgeInsetsOptions.none,
-              children: [BitThumbnail(width: width, image: image)],
-              width: width,
-              height: height,
-            ),
-          )
+          .map((_) => BitThumbnail(width: 200.0, image: image))
           .toList(),
     );
   }

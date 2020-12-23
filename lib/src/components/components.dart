@@ -8,3 +8,4 @@ export 'carousel.dart';
 export 'card.dart';
 export 'thumbnail.dart';
 export 'layout/layout.dart';
+export 'text.dart';

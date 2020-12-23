@@ -5,6 +5,7 @@ import 'package:ui_bits/ui_bits.dart';
 
 import 'carousel_page_sample.dart';
 import 'login_page_sample.dart';
+import 'typography_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -73,27 +74,24 @@ class _CatalogState extends State<Catalog> {
                 color: context.theme.primaryColor,
               ),
             ),
-            ListTile(
-              title: Text('Login Card'),
-              onTap: () {
-                setState(() {
-                  currentWidget = LoginPageSample();
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Carousel Cards'),
-              onTap: () {
-                setState(() {
-                  currentWidget = CarouselPageSample();
-                });
-                Navigator.pop(context);
-              },
-            ),
+            buildTile('Login Card', LoginPageSample()),
+            buildTile('Carousel Cards', CarouselPageSample()),
+            buildTile('Typography', TypographyPageSample()),
           ],
         ),
       ),
+    );
+  }
+
+  ListTile buildTile(String data, Widget widget) {
+    return ListTile(
+      title: Text(data),
+      onTap: () {
+        setState(() {
+          currentWidget = widget;
+        });
+        Navigator.pop(context);
+      },
     );
   }
 }

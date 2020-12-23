@@ -127,18 +127,72 @@ class ThemeFactory {
 
   static TextTheme _buildTextTheme(ThemeData theme) {
     return theme.textTheme.copyWith(
-      button: TextStyle(color: theme.backgroundColor, fontFamily: 'Open Sans'),
-      subtitle1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
-      subtitle2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
-      caption: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      bodyText1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
-      bodyText2: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      headline1: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
-      headline2: TextStyle(color: theme.hintColor, fontFamily: 'Open Sans'),
-      headline3: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      headline4: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      headline5: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
-      headline6: TextStyle(color: Colors.amberAccent, fontFamily: 'Open Sans'),
+      button: TextStyle(
+        color: theme.backgroundColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      subtitle1: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      subtitle2: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      caption: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      bodyText1: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      bodyText2: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontSize: 16.0,
+      ),
+      headline1: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.w200,
+        fontSize: 60.0,
+      ),
+      headline2: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.w300,
+        fontSize: 40.0,
+      ),
+      headline3: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.w300,
+        fontSize: 34.0,
+      ),
+      headline4: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.w300,
+        fontSize: 26.0,
+      ),
+      headline5: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.w300,
+        fontSize: 22.0,
+      ),
+      headline6: TextStyle(
+        color: theme.hintColor,
+        fontFamily: 'Open Sans',
+        fontWeight: FontWeight.bold,
+        fontSize: 22.0,
+      ),
     );
   }
 
