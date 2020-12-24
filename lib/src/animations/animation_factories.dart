@@ -1,4 +1,4 @@
-import 'package:ui_bits/animations/internal_animations.dart';
+import 'package:ui_bits/src/ui_bits_internal.dart';
 
 class BitAnimations {
   static BitAnimation none() => const BitNoAnimation();

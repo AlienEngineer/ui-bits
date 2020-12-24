@@ -7,11 +7,13 @@ class BitCard extends StatelessWidget {
   final double width;
   final double height;
   final BitAnimation animation;
+  final BitEdgeInsets padding;
 
   BitCard({
     this.width,
     this.height,
     this.children,
+    this.padding = BitEdgeInsetsOptions.all,
     this.animation = const BitNoAnimation(),
   });
 
@@ -26,7 +28,7 @@ class BitCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(context.sizes.medium),
           border: context.borders.round,
         ),
-        padding: EdgeInsets.all(context.sizes.mediumSmall),
+        padding: padding.getEdgeInsets(context.sizes.mediumSmall),
         child: CardSize(
           width: width,
           height: height,

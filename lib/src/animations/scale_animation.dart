@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/animations/internal_animations.dart';
 import 'package:ui_bits/ui_bits.dart';
 
 class BitScaleAnimation extends BitAnimation {

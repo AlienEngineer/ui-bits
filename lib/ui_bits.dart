@@ -1,6 +1,5 @@
 library ui_bits;
 
-export 'animated_components/animated_components.dart';
-export 'animations/animations.dart';
-export 'components/components.dart';
-export 'themes/theme_factory.dart';
+export 'src/animations/animations.dart';
+export 'src/components/components.dart';
+export 'src/themes/theme_factory.dart';
