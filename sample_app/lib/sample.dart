@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
+import 'package:provider/provider.dart';
 
 import 'carousel_page_sample.dart';
 import 'login_page_sample.dart';
@@ -19,15 +20,43 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.landscapeLeft,
     ]);
 
-    var themeFactory = ThemeFactory();
-
-    return MaterialApp(
-      title: 'Catalog',
-      theme: themeFactory.makeBlueTheme(),
-      home: themeFactory.makeHome(
-        child: Catalog(title: 'Flutter Components Catalog'),
+    return ChangeNotifierProvider<ThemeProvider>(
+      create: (_) => ThemeProvider(),
+      child: Builder(
+        builder: (context) {
+          return Consumer<ThemeProvider>(builder: (_, provider, ___) {
+            return MaterialApp(
+              title: 'Catalog',
+              theme: provider.theme,
+              home: provider.themeFactory.makeHome(
+                child: Catalog(title: 'ui-bits Components Catalog'),
+              ),
+            );
+          });
+        },
       ),
     );
+  }
+}
+
+class ThemeProvider extends ChangeNotifier {
+  var themeFactory = ThemeFactory();
+  ThemeData theme;
+  List<ThemeData> themes;
+  int current = 0;
+
+  ThemeProvider() {
+    theme = themeFactory.makeBlueTheme();
+    themes = [
+      themeFactory.makeBlueTheme(),
+      themeFactory.makePurpleTheme(),
+    ];
+  }
+
+  void changeTheme() {
+    current = (++current % themes.length);
+    theme = themes[current];
+    notifyListeners();
   }
 }
 
@@ -53,16 +82,24 @@ class _CatalogState extends State<Catalog> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: Container(
-              padding: EdgeInsets.all(25.0),
-              child: currentWidget,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                context.read<ThemeProvider>().changeTheme();
+              },
+              child: Icon(
+                Icons.color_lens_outlined,
+                size: 26.0,
+              ),
             ),
           ),
         ],
+      ),
+      body: Container(
+        padding: EdgeInsets.all(25.0),
+        child: Center(child: currentWidget),
       ),
       drawer: Drawer(
         child: ListView(

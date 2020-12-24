@@ -7,13 +7,15 @@ class BitText extends StatelessWidget {
   const BitText(
     this.text, {
     Key key,
-    this.style = BitTextStyles.h3,
+    this.style = BitTextStyles.body2,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      text ?? "",
+      overflow: TextOverflow.fade,
+      softWrap: false,
       style: style.make(context),
     );
   }
@@ -23,18 +25,77 @@ abstract class BitTextStyleFactory {
   TextStyle make(BuildContext context);
 }
 
+class TextColorVariations implements BitTextStyleFactory {
+  final BitTextStyleFactory style;
+
+  const TextColorVariations(this.style);
+
+  @override
+  TextStyle make(BuildContext context) => style.make(context);
+
+  BitTextStyleFactory asPrimary(BuildContext context) =>
+      _PrimaryTextStyleFactory(this);
+
+  BitTextStyleFactory asSecondary(BuildContext context) =>
+      _SecondaryTextStyleFactory(this);
+
+  BitTextStyleFactory asLabel(BuildContext context) =>
+      _LabelTextStyleFactory(this);
+}
+
+class _PrimaryTextStyleFactory implements BitTextStyleFactory {
+  final BitTextStyleFactory style;
+
+  const _PrimaryTextStyleFactory(this.style);
+
+  @override
+  TextStyle make(BuildContext context) =>
+      style.make(context).copyWith(color: context.theme.primaryColor);
+}
+
+class _SecondaryTextStyleFactory implements BitTextStyleFactory {
+  final BitTextStyleFactory style;
+
+  const _SecondaryTextStyleFactory(this.style);
+
+  @override
+  TextStyle make(BuildContext context) =>
+      style.make(context).copyWith(color: context.theme.backgroundColor);
+}
+
+class _LabelTextStyleFactory implements BitTextStyleFactory {
+  final BitTextStyleFactory style;
+
+  const _LabelTextStyleFactory(this.style);
+
+  @override
+  TextStyle make(BuildContext context) =>
+      style.make(context).copyWith(color: context.theme.hintColor);
+}
+
 class BitTextStyles {
-  static const BitTextStyleFactory subtitle1 = _Subtitle1TextStyleFactory();
-  static const BitTextStyleFactory subtitle2 = _Subtitle2TextStyleFactory();
-  static const BitTextStyleFactory caption = _CaptionTextStyleFactory();
-  static const BitTextStyleFactory body1 = _Body1TextStyleFactory();
-  static const BitTextStyleFactory body2 = _Body2TextStyleFactory();
-  static const BitTextStyleFactory h1 = _H1TextStyleFactory();
-  static const BitTextStyleFactory h2 = _H2TextStyleFactory();
-  static const BitTextStyleFactory h3 = _H3TextStyleFactory();
-  static const BitTextStyleFactory h4 = _H4TextStyleFactory();
-  static const BitTextStyleFactory h5 = _H5TextStyleFactory();
-  static const BitTextStyleFactory h6 = _H6TextStyleFactory();
+  static const TextColorVariations subtitle1 =
+      TextColorVariations(_Subtitle1TextStyleFactory());
+  static const TextColorVariations subtitle2 =
+      TextColorVariations(_Subtitle2TextStyleFactory());
+  static const TextColorVariations caption =
+      TextColorVariations(_CaptionTextStyleFactory());
+  static const TextColorVariations body1 =
+      TextColorVariations(_Body1TextStyleFactory());
+  static const TextColorVariations body2 =
+      TextColorVariations(_Body2TextStyleFactory());
+  static const TextColorVariations h1 =
+      TextColorVariations(_H1TextStyleFactory());
+  static const TextColorVariations h2 =
+      TextColorVariations(_H2TextStyleFactory());
+  static const TextColorVariations h3 =
+      TextColorVariations(_H3TextStyleFactory());
+  static const TextColorVariations h4 =
+      TextColorVariations(_H4TextStyleFactory());
+  static const TextColorVariations h5 =
+      TextColorVariations(_H5TextStyleFactory());
+  static const TextColorVariations h6 =
+      TextColorVariations(_H6TextStyleFactory());
 }
 
 class _Subtitle1TextStyleFactory implements BitTextStyleFactory {

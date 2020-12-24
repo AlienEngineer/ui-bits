@@ -29,7 +29,6 @@ class _CarouselState extends State<Carousel> {
       physics: ClampingScrollPhysics(),
       controller: _controller,
       scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.all(16.0),
       child: IntrinsicHeight(
         child: Row(
           children: buildChildren().toList(),
@@ -44,7 +43,7 @@ class _CarouselState extends State<Carousel> {
   Iterable<Widget> buildChildren() sync* {
     yield widget.children.first;
     for (var widget in widget.children.skip(1)) {
-      yield SizedBox(width: context.sizes.medium);
+      yield SizedBox(width: context.sizes.small);
       yield widget;
     }
   }

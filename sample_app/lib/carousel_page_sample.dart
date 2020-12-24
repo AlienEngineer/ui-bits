@@ -24,11 +24,82 @@ class _CarouselPageState extends State<CarouselPageSample> {
 
   @override
   Widget build(BuildContext context) {
-    return Carousel(
-      children: Iterable<int>.generate(10)
-          .where((_) => image != null)
-          .map((_) => BitThumbnail(width: 200.0, image: image))
-          .toList(),
+    return BitScrollable(
+      children: [
+        Row(
+          children: [
+            BitThumbnail(
+              width: 200.0,
+              data: ThumbnailData(
+                image: image,
+                title: 'Arthur Morgan',
+                subTitle: 'Engineer',
+              ),
+            ),
+            BitThumbnail(
+              width: 200.0,
+              data: ThumbnailData(
+                image: image,
+                title: 'Arthur Morgan',
+              ),
+            ),
+            BitThumbnail(
+              width: 200.0,
+              data: ThumbnailData(
+                image: image,
+                subTitle: 'Engineer',
+              ),
+            ),
+            BitThumbnail(
+              width: 200.0,
+              data: ThumbnailData(
+                image: image,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: context.sizes.medium),
+        Carousel(
+          children: [
+            'Dutch van der Linde',
+            'Arthur Morgan',
+            'John Marston',
+            'Abigail Roberts',
+            'Bill Williamson',
+            'Charles Smith',
+            'Hosea Matthews',
+            'Jack Marston',
+            'Javier Escuella',
+            'Josiah Trelawny',
+            'Karen Jones',
+            'Kieran Duffy',
+            'Lenny Summers',
+            'Leopold Strauss',
+            'Mary-Beth Gaskill',
+            'Micah Bell',
+            'Molly O\'Shea',
+            'Mr. Pearson',
+            'Reverend Swanson',
+            'Sadie Adler',
+            'Sean MacGuire',
+            'Susan Grimshaw',
+            'Tilly Jackson',
+            'Uncle',
+          ]
+              .where((_) => image != null)
+              .map(
+                (name) => BitThumbnail(
+                  width: 200.0,
+                  data: ThumbnailData(
+                    image: image,
+                    title: name,
+                    subTitle: 'Engineer',
+                  ),
+                ),
+              )
+              .toList(),
+        )
+      ],
     );
   }
 

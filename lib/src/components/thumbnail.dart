@@ -3,14 +3,28 @@ import 'dart:typed_data';
 
 import 'package:ui_bits/src/ui_bits_internal.dart';
 
+class ThumbnailData {
+  String title;
+  String subTitle;
+  Uint8List image;
+
+  ThumbnailData({
+    this.title,
+    this.subTitle,
+    this.image,
+  });
+}
+
 class BitThumbnail extends StatelessWidget {
   final double width;
   final Uint8List image;
+  final ThumbnailData data;
 
   const BitThumbnail({
     Key key,
     this.width,
     this.image,
+    this.data,
   }) : super(key: key);
 
   @override
@@ -18,9 +32,12 @@ class BitThumbnail extends StatelessWidget {
     return BitCard(
       padding: BitEdgeInsetsOptions.none,
       children: [
-        BitSmallPadding(
-          child: Center(child: CircleImageWidget(width: width, image: image)),
-        ),
+        if (data.image != null)
+          BitSmallPadding(
+            child: Center(
+              child: CircleImageWidget(width: width, image: data.image),
+            ),
+          ),
         BitSmallPadding(
           options: BitEdgeInsetsOptions.combine([
             BitEdgeInsetsOptions.top,
@@ -28,7 +45,20 @@ class BitThumbnail extends StatelessWidget {
             BitEdgeInsetsOptions.left,
             BitEdgeInsetsOptions.right,
           ]),
-          child: BitText('Ricardo Nunes'),
+          child: Center(
+            child: Column(
+              children: [
+                BitText(
+                  data.title,
+                  style: BitTextStyles.h5.asPrimary(context),
+                ),
+                BitText(
+                  data.subTitle,
+                  style: BitTextStyles.subtitle1,
+                ),
+              ],
+            ),
+          ),
         )
       ],
       width: width,
