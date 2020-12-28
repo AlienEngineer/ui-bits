@@ -6,7 +6,7 @@ import 'package:ui_bits/src/ui_bits_internal.dart';
 class ThumbnailData {
   String title;
   String subTitle;
-  Uint8List image;
+  Future<BitImage> image;
 
   ThumbnailData({
     this.title,
@@ -32,12 +32,14 @@ class BitThumbnail extends StatelessWidget {
     return BitCard(
       padding: BitEdgeInsetsOptions.none,
       children: [
-        if (data.image != null)
-          BitSmallPadding(
-            child: Center(
-              child: CircleImageWidget(width: width, image: data.image),
+        BitSmallPadding(
+          child: Center(
+            child: CircleImageWidget(
+              width: width,
+              image: data.image,
             ),
           ),
+        ),
         BitSmallPadding(
           options: BitEdgeInsetsOptions.combine([
             BitEdgeInsetsOptions.top,
@@ -63,32 +65,6 @@ class BitThumbnail extends StatelessWidget {
       ],
       width: width,
       height: width * 1.25,
-    );
-  }
-}
-
-class CircleImageWidget extends StatelessWidget {
-  const CircleImageWidget({
-    Key key,
-    @required this.width,
-    @required this.image,
-  }) : super(key: key);
-
-  final double width;
-  final Uint8List image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width * 0.75,
-      height: width * 0.75,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: MemoryImage(image),
-        ),
-      ),
     );
   }
 }

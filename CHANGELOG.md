@@ -1,3 +1,6 @@
+## [0.0.8]
+- use BitImage to load images on BitThumbnail
+
 ## [0.0.7]
 - BitSmallPadding
   - BitEdgeInsetsOptions
