@@ -42,7 +42,7 @@ class CarouselPageSample extends StatelessWidget {
           ],
         ),
         SizedBox(height: context.sizes.medium),
-        Carousel(
+        BitCarousel(
           children: [
             'Dutch van der Linde',
             'Arthur Morgan',

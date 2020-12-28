@@ -1,16 +1,16 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
 
-class Carousel extends StatefulWidget {
+class BitCarousel extends StatefulWidget {
   final List<Widget> children;
 
-  Carousel({this.children});
+  BitCarousel({this.children});
 
   @override
-  _CarouselState createState() => _CarouselState();
+  _BitCarouselState createState() => _BitCarouselState();
 }
 
-class _CarouselState extends State<Carousel> {
+class _BitCarouselState extends State<BitCarousel> {
   ScrollController _controller;
 
   @override
