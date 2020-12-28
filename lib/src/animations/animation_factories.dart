@@ -9,6 +9,9 @@ class BitAnimations {
   static BitAnimation scale({AnimationRegistry animateAfter}) =>
       BitScaleAnimation(animateAfter: animateAfter);
 
+  static BitAnimation fadeIn({AnimationRegistry animateAfter}) =>
+      BitFadeInAnimation(animateAfter: animateAfter);
+
   static BitAnimation flip({
     AnimationRegistry animateAfter = const StubRegistry(),
     AnimationStarter onComplete,

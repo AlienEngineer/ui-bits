@@ -36,7 +36,7 @@ class _BitInputPasswordFieldState extends State<BitInputPasswordField> {
   Widget _buildSuffixIcon(BuildContext context) {
     return GestureDetector(
       onTap: () => setState(() => _obscureText = !_obscureText),
-      child: BitFadeInAnimation(
+      child: BitFadeInAnimationWidget(
         duration: context.animation.short,
         animateAfter: widget.animation.animateAfter,
         child: BitToggleAnimation(

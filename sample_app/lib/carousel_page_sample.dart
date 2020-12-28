@@ -1,27 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/ui_bits.dart';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
 
-class CarouselPageSample extends StatefulWidget {
-  @override
-  _CarouselPageState createState() => _CarouselPageState();
-}
-
-class _CarouselPageState extends State<CarouselPageSample> {
-  Uint8List image;
-
-  @override
-  void initState() {
-    super.initState();
-    networkImageToByte("https://picsum.photos/200/200").then((value) {
-      setState(() {
-        image = value;
-      });
-    });
-  }
-
+class CarouselPageSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BitScrollable(
@@ -31,7 +14,7 @@ class _CarouselPageState extends State<CarouselPageSample> {
             BitThumbnail(
               width: 200.0,
               data: ThumbnailData(
-                image: image,
+                image: networkImageToByte("https://picsum.photos/200/200"),
                 title: 'Arthur Morgan',
                 subTitle: 'Engineer',
               ),
@@ -39,21 +22,21 @@ class _CarouselPageState extends State<CarouselPageSample> {
             BitThumbnail(
               width: 200.0,
               data: ThumbnailData(
-                image: image,
+                image: networkImageToByte("https://picsum.photos/200/200"),
                 title: 'Arthur Morgan',
               ),
             ),
             BitThumbnail(
               width: 200.0,
               data: ThumbnailData(
-                image: image,
+                image: networkImageToByte("https://picsum.photos/200/200"),
                 subTitle: 'Engineer',
               ),
             ),
             BitThumbnail(
               width: 200.0,
               data: ThumbnailData(
-                image: image,
+                image: networkImageToByte("https://picsum.photos/200/200"),
               ),
             ),
           ],
@@ -86,12 +69,11 @@ class _CarouselPageState extends State<CarouselPageSample> {
             'Tilly Jackson',
             'Uncle',
           ]
-              .where((_) => image != null)
               .map(
                 (name) => BitThumbnail(
                   width: 200.0,
                   data: ThumbnailData(
-                    image: image,
+                    image: networkImageToByte("https://picsum.photos/200/200"),
                     title: name,
                     subTitle: 'Engineer',
                   ),
@@ -103,11 +85,11 @@ class _CarouselPageState extends State<CarouselPageSample> {
     );
   }
 
-  Future<Uint8List> networkImageToByte(String path) async {
+  Future<BitImage> networkImageToByte(String path) async {
     HttpClient httpClient = HttpClient();
     var request = await httpClient.getUrl(Uri.parse(path));
     var response = await request.close();
     Uint8List bytes = await consolidateHttpClientResponseBytes(response);
-    return bytes;
+    return BitImageBytes(bytes);
   }
 }

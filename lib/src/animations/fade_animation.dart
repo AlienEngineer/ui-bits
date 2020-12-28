@@ -1,23 +1,42 @@
 import 'package:flutter/widgets.dart';
+import 'package:ui_bits/src/ui_bits_internal.dart';
 
-import 'animations_orchestrator.dart';
+class BitFadeInAnimation extends BitAnimation {
+  final AnimationRegistry animateAfter;
 
-class BitFadeInAnimation extends StatefulWidget {
+  BitFadeInAnimation({
+    this.animateAfter,
+  });
+
+  @override
+  Widget wrapWidget({Widget child}) {
+    return Builder(builder: (context) {
+      return BitFadeInAnimationWidget(
+        child: child,
+        animateAfter: animateAfter,
+        duration: context.animation.extraShort,
+      );
+    });
+  }
+}
+
+class BitFadeInAnimationWidget extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final AnimationRegistry animateAfter;
 
-  const BitFadeInAnimation({
+  const BitFadeInAnimationWidget({
     this.child,
     this.duration = const Duration(milliseconds: 150),
     this.animateAfter = const StubRegistry(),
   });
 
   @override
-  _BitFadeInAnimationState createState() => _BitFadeInAnimationState();
+  _BitFadeInAnimationWidgetState createState() =>
+      _BitFadeInAnimationWidgetState();
 }
 
-class _BitFadeInAnimationState extends State<BitFadeInAnimation> {
+class _BitFadeInAnimationWidgetState extends State<BitFadeInAnimationWidget> {
   var opacity = 0.0;
 
   @override
