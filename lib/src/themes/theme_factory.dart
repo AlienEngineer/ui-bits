@@ -87,23 +87,23 @@ class ThemeFactory {
       ),
       // context: Copy | Cut | Paste
       hintColor: labelColor,
-      highlightColor: Colors.amberAccent,
-      focusColor: Colors.amberAccent,
-      buttonColor: Colors.amberAccent,
-      indicatorColor: Colors.amberAccent,
-      splashColor: Colors.amberAccent,
-      hoverColor: Colors.amberAccent,
-      dividerColor: Colors.amberAccent,
-      toggleableActiveColor: Colors.amberAccent,
-      bottomAppBarColor: Colors.amberAccent,
-      dialogBackgroundColor: Colors.amberAccent,
-      disabledColor: Colors.amberAccent,
-      errorColor: Colors.amberAccent,
-      secondaryHeaderColor: Colors.amberAccent,
-      selectedRowColor: Colors.amberAccent,
-      unselectedWidgetColor: Colors.amberAccent,
-      primaryColorDark: Colors.amberAccent,
-      primaryColorLight: Colors.amberAccent,
+      //highlightColor: secondaryColor,
+      //focusColor: Colors.amberAccent,
+      //buttonColor: Colors.amberAccent,
+      //indicatorColor: Colors.amberAccent,
+      //splashColor: Colors.amberAccent,
+      //hoverColor: Colors.amberAccent,
+      //dividerColor: Colors.amberAccent,
+      //toggleableActiveColor: Colors.amberAccent,
+      //bottomAppBarColor: Colors.amberAccent,
+      //dialogBackgroundColor: Colors.amberAccent,
+      //disabledColor: Colors.amberAccent,
+      //errorColor: Colors.amberAccent,
+      //secondaryHeaderColor: Colors.amberAccent,
+      //selectedRowColor: Colors.amberAccent,
+      //unselectedWidgetColor: Colors.amberAccent,
+      //primaryColorDark: Colors.amberAccent,
+      //primaryColorLight: Colors.amberAccent,
     );
 
     return theme.copyWith(
@@ -277,6 +277,8 @@ class BitSizes {
 
 class BitBorders {
   BuildContext context;
+
+  BorderRadius get circular => BorderRadius.circular(context.sizes.medium);
 
   Border get round {
     return Border.all(

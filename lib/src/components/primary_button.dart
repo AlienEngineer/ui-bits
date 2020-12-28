@@ -64,13 +64,14 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
     final buttonTheme = theme.floatingActionButtonTheme;
 
     return widget.animation.wrapWidget(
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Material(
-          shape: buttonTheme.shape,
-          color: theme.primaryColor,
-          shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
-          elevation: buttonTheme.elevation ?? 0.1,
+      child: Material(
+        shape: buttonTheme.shape,
+        color: theme.primaryColor,
+        shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
+        elevation: buttonTheme.elevation ?? 0.1,
+        child: InkWell(
+          borderRadius: context.borders.circular,
+          onTap: widget.onTap,
           child: Container(
             width: _width,
             height: _height,

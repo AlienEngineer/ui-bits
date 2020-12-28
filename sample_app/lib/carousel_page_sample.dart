@@ -3,6 +3,7 @@ import 'package:ui_bits/ui_bits.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 
 class CarouselPageSample extends StatelessWidget {
   @override
@@ -71,6 +72,7 @@ class CarouselPageSample extends StatelessWidget {
           ]
               .map(
                 (name) => BitThumbnail(
+                  onTap: () => _showDialog(context),
                   width: 200.0,
                   data: ThumbnailData(
                     image: networkImageToByte("https://picsum.photos/200/200"),
@@ -91,5 +93,16 @@ class CarouselPageSample extends StatelessWidget {
     var response = await request.close();
     Uint8List bytes = await consolidateHttpClientResponseBytes(response);
     return BitImageBytes(bytes);
+  }
+
+  void _showDialog(BuildContext context, {String message = "tapped"}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message),
+        );
+      },
+    );
   }
 }

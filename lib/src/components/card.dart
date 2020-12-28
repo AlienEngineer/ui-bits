@@ -8,6 +8,7 @@ class BitCard extends StatelessWidget {
   final double height;
   final BitAnimation animation;
   final BitEdgeInsets padding;
+  final VoidCallback onTap;
 
   BitCard({
     this.width,
@@ -15,26 +16,31 @@ class BitCard extends StatelessWidget {
     this.children,
     this.padding = BitEdgeInsetsOptions.all,
     this.animation = const BitNoAnimation(),
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return animation.wrapWidget(
-      child: Container(
-        alignment: Alignment.center,
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(context.sizes.medium),
-          border: context.borders.round,
-        ),
-        padding: padding.getEdgeInsets(context.sizes.mediumSmall),
-        child: CardSize(
+      child: InkWell(
+        borderRadius: context.borders.circular,
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
           width: width,
           height: height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: children,
+          decoration: BoxDecoration(
+            borderRadius: context.borders.circular,
+            border: context.borders.round,
+          ),
+          padding: padding.getEdgeInsets(context.sizes.mediumSmall),
+          child: CardSize(
+            width: width,
+            height: height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
           ),
         ),
       ),
