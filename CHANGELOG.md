@@ -1,3 +1,8 @@
+## [0.0.10]
+- Added inkwell:
+  - BitPrimaryButton, BitCard
+- BitThumbnail now has onTap callback.
+
 ## [0.0.9]
 - Carousel -> BitCarousel
 
