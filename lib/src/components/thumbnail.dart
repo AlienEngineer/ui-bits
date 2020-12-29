@@ -19,17 +19,20 @@ class BitThumbnail extends StatelessWidget {
   final double width;
   final Uint8List image;
   final ThumbnailData data;
+  final VoidCallback onTap;
 
   const BitThumbnail({
     Key key,
     this.width,
     this.image,
     this.data,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BitCard(
+      onTap: onTap,
       padding: BitEdgeInsetsOptions.none,
       children: [
         BitSmallPadding(
