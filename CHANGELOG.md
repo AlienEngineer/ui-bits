@@ -1,3 +1,5 @@
+## [0.0.11]
+- small fix
 
 ## [0.0.10]
 - Added inkwell:
