@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_bits/ui_bits.dart';
+import 'tester_extensions.dart';
 
 void main() {
   [
@@ -8,7 +9,7 @@ void main() {
     (field) => makePasswordInputField(field),
   ].forEach((makeTestCase) {
     Future pumpWidget(WidgetTester tester, Field<String> field) async {
-      await tester.pumpWidget(makeTestCase(field)['widget']);
+      await makeTestCase(field)['widget'](tester);
     }
 
     group('input: ${makeTestCase(null)['type']}', () {
@@ -54,33 +55,33 @@ void main() {
 Map<String, dynamic> makeTextInputField(Field<String> field) {
   return {
     'type': BitInputTextField,
-    'widget': MaterialApp(
-      home: Scaffold(
-        body: BitInputTextField(
+    'widget': (WidgetTester tester) {
+      return tester.pumpApp(
+        BitInputTextField(
           FieldLabels(
             label: 'myLabel',
             icon: Icons.add,
           ),
           field: field,
         ),
-      ),
-    ),
+      );
+    },
   };
 }
 
 Map<String, dynamic> makePasswordInputField(Field<String> field) {
   return {
     'type': BitInputPasswordField,
-    'widget': MaterialApp(
-      home: Scaffold(
-        body: BitInputPasswordField(
+    'widget': (WidgetTester tester) {
+      return tester.pumpApp(
+        BitInputPasswordField(
           FieldLabels(
             label: 'myLabel',
             icon: Icons.add,
           ),
           field: field,
         ),
-      ),
-    ),
+      );
+    },
   };
 }
