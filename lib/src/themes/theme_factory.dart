@@ -5,14 +5,9 @@ extension ContextExtensions on BuildContext {
 
   BitSizes get sizes => BitTheme.of(this).size;
 
-  BitBorders get borders {
-    var widgetBorders = BitTheme.of(this).borders;
-    widgetBorders.setContext(this);
-    return widgetBorders;
-  }
+  BitBorders get borders => BitTheme.of(this).borders;
 
-  BitAnimationDurations get animation =>
-      BitTheme.of(this)?.animations ?? BitAnimationDurations();
+  BitAnimationDurations get animation => BitTheme.of(this)?.animations;
 
   double calculateCardWidth() => CardSize.of(this)?.calculateWidth(this);
 }
@@ -21,14 +16,7 @@ class ThemeFactory {
   Widget makeHome({Widget child}) {
     return BitTheme(
       child: child,
-      size: BitSizes(
-        none: 0.0,
-        small: 10.0,
-        mediumSmall: 16.0,
-        medium: 20.0,
-      ),
       borders: BitBorders(),
-      animations: BitAnimationDurations(),
     );
   }
 
@@ -231,9 +219,9 @@ class BitTheme extends InheritedWidget {
 
   const BitTheme({
     Key key,
-    this.size,
+    this.size = const BitSizes(),
+    this.animations = const BitAnimationDurations(),
     this.borders,
-    this.animations,
     Widget child,
   }) : super(key: key, child: child);
 
@@ -243,7 +231,16 @@ class BitTheme extends InheritedWidget {
   }
 
   static BitTheme of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<BitTheme>();
+    var bitTheme = context.dependOnInheritedWidgetOfExactType<BitTheme>() ??
+        BitTheme(
+          borders: BitBorders(),
+        );
+    bitTheme._setContext(context);
+    return bitTheme;
+  }
+
+  void _setContext(BuildContext context) {
+    borders._setContext(context);
   }
 }
 
@@ -253,7 +250,7 @@ class BitAnimationDurations {
   final Duration medium;
   final Duration long;
 
-  BitAnimationDurations({
+  const BitAnimationDurations({
     this.extraShort = const Duration(milliseconds: 150),
     this.short = const Duration(milliseconds: 250),
     this.medium = const Duration(milliseconds: 700),
@@ -268,10 +265,10 @@ class BitSizes {
   final double mediumSmall;
 
   const BitSizes({
-    this.none,
-    this.small,
-    this.mediumSmall,
-    this.medium,
+    this.none = 0.0,
+    this.small = 10.0,
+    this.mediumSmall = 16.0,
+    this.medium = 20.0,
   });
 }
 
@@ -287,7 +284,7 @@ class BitBorders {
     );
   }
 
-  void setContext(BuildContext buildContext) {
+  void _setContext(BuildContext buildContext) {
     context = buildContext;
   }
 }
