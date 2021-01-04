@@ -5,7 +5,7 @@ import 'package:loading/loading.dart';
 import 'package:ui_bits/ui_bits.dart';
 
 class BitLoading extends StatelessWidget {
-  BitScheme scheme;
+  final BitScheme scheme;
 
   BitLoading({
     this.scheme,
