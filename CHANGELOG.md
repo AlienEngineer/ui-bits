@@ -1,3 +1,6 @@
+## [0.0.13]
+- BitLoading auto on BitPrimaryButton
+
 ## [0.0.12]
 - BitLoading
 

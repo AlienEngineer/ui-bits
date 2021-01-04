@@ -13,6 +13,7 @@ class LoginPageSample extends StatefulWidget {
 class _LoginPageSampleState extends State<LoginPageSample> {
   final AnimationOrchestrator loginCardInputs = AnimationOrchestrator();
   final AnimationOrchestrator flipAnimation = AnimationOrchestrator();
+  final Monitor monitor = Monitor();
 
   @override
   initState() {
@@ -27,7 +28,10 @@ class _LoginPageSampleState extends State<LoginPageSample> {
         LoginCard(
           triggerFlip: flipAnimation.delayedInMillis(300),
           triggerInput: loginCardInputs,
-          onTap: () => _showDialog(),
+          onTap: () {
+            Future.delayed(Duration(seconds: 4)).then((_) => monitor.signal());
+          },
+          loadingMonitor: monitor,
         ),
       ],
     );
@@ -45,34 +49,16 @@ class _LoginPageSampleState extends State<LoginPageSample> {
   }
 }
 
-class LoginCardLabels {
-  final String loginLabel;
-  final FieldLabels userField;
-  final FieldLabels passwordField;
-
-  const LoginCardLabels({
-    this.userField = const FieldLabels(
-      label: 'User',
-      icon: FontAwesomeIcons.solidUserCircle,
-    ),
-    this.passwordField = const FieldLabels(
-      label: 'Password',
-      icon: FontAwesomeIcons.lock,
-    ),
-    this.loginLabel = 'LOGIN',
-  });
-}
-
 class LoginCard extends StatelessWidget {
   final VoidCallback onTap;
-  final LoginCardLabels messages;
   final AnimationOrchestrator triggerInput;
   final AnimationRegistry triggerFlip;
+  final Monitor loadingMonitor;
 
   const LoginCard({
     this.onTap,
     this.triggerInput,
-    this.messages = const LoginCardLabels(),
+    this.loadingMonitor,
     this.triggerFlip = const StubRegistry(),
   });
 
@@ -90,13 +76,19 @@ class LoginCard extends StatelessWidget {
       width: cardWidth,
       children: [
         BitInputTextField(
-          messages.userField,
+          const FieldLabels(
+            label: 'User',
+            icon: FontAwesomeIcons.solidUserCircle,
+          ),
           field: fields.user,
           animation: BitAnimations.width(animateAfter: triggerInput),
         ),
         SizedBox(height: context.sizes.small),
         BitInputPasswordField(
-          messages.passwordField,
+          const FieldLabels(
+            label: 'Password',
+            icon: FontAwesomeIcons.lock,
+          ),
           field: fields.password,
           animation: BitAnimations.width(
             animateAfter: triggerInput.delayedExtraShort(context),
@@ -106,7 +98,8 @@ class LoginCard extends StatelessWidget {
         Center(
           child: BitPrimaryButton(
             onTap: onTap,
-            label: messages.loginLabel,
+            loadingMonitor: loadingMonitor,
+            label: 'LOGIN',
             animation: BitAnimations.scale(
               animateAfter: triggerInput.delayedShort(context),
             ),
