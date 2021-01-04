@@ -1,3 +1,6 @@
+## [0.0.14]
+- disable tapping on BitPrimaryButton while loading
+
 ## [0.0.13]
 - BitLoading auto on BitPrimaryButton
 

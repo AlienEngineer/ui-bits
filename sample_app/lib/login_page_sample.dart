@@ -29,6 +29,7 @@ class _LoginPageSampleState extends State<LoginPageSample> {
           triggerFlip: flipAnimation.delayedInMillis(300),
           triggerInput: loginCardInputs,
           onTap: () {
+            print('tapped');
             Future.delayed(Duration(seconds: 4)).then((_) => monitor.signal());
           },
           loadingMonitor: monitor,

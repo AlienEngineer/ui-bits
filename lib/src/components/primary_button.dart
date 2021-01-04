@@ -76,8 +76,12 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
         shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
         elevation: buttonTheme.elevation ?? 0.1,
         child: InkWell(
+          enableFeedback: !_loading,
           borderRadius: context.borders.circular,
           onTap: () {
+            if (_loading == true) {
+              return;
+            }
             setState(() {
               _loading = true;
             });
