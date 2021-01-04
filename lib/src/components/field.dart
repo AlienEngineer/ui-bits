@@ -15,6 +15,7 @@ class Field<T> {
   }
 
   void dispose() {
+    controller.clear();
     controller.dispose();
   }
 

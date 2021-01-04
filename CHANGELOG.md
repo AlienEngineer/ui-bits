@@ -1,5 +1,6 @@
 ## [0.0.11]
 - small fix
+- BitLoading
 
 ## [0.0.10]
 - Added inkwell:
