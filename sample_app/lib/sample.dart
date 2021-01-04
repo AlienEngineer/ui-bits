@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'carousel_page_sample.dart';
 import 'login_page_sample.dart';
 import 'typography_page_sample.dart';
+import 'loading_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -114,6 +115,7 @@ class _CatalogState extends State<Catalog> {
             buildTile('Login Card', LoginPageSample()),
             buildTile('Carousel Cards', CarouselPageSample()),
             buildTile('Typography', TypographyPageSample()),
+            buildTile('Loading', LoadingPageSample()),
           ],
         ),
       ),

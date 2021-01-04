@@ -78,6 +78,7 @@ class LoginCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _CredentialsFields fields = _CredentialsFields();
     final deviceSize = MediaQuery.of(context).size;
     final cardWidth = min(deviceSize.width * 0.75, 360.0);
 
@@ -90,11 +91,13 @@ class LoginCard extends StatelessWidget {
       children: [
         BitInputTextField(
           messages.userField,
+          field: fields.user,
           animation: BitAnimations.width(animateAfter: triggerInput),
         ),
         SizedBox(height: context.sizes.small),
         BitInputPasswordField(
           messages.passwordField,
+          field: fields.password,
           animation: BitAnimations.width(
             animateAfter: triggerInput.delayedExtraShort(context),
           ),
@@ -111,5 +114,20 @@ class LoginCard extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _CredentialsFields {
+  final Field<String> user = Field<String>();
+  final Field<String> password = Field<String>();
+
+  void dispose() {
+    user.dispose();
+    password.dispose();
+  }
+
+  void print() {
+    user.printValues();
+    password.printValues();
   }
 }
