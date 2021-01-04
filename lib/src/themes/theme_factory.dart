@@ -263,12 +263,16 @@ class BitSizes {
   final double small;
   final double medium;
   final double mediumSmall;
+  final double large;
+  final double extraLarge;
 
   const BitSizes({
     this.none = 0.0,
     this.small = 10.0,
     this.mediumSmall = 16.0,
     this.medium = 20.0,
+    this.large = 30.0,
+    this.extraLarge = 40.0,
   });
 }
 

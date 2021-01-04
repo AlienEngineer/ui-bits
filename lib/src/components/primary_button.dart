@@ -7,10 +7,12 @@ class BitPrimaryButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final BitAnimation animation;
+  final Monitor loadingMonitor;
 
   const BitPrimaryButton({
     this.label,
     this.onTap,
+    this.loadingMonitor,
     this.animation = const BitNoAnimation(),
   });
 
@@ -21,8 +23,9 @@ class BitPrimaryButton extends StatefulWidget {
 class _BitPrimaryButtonState extends State<BitPrimaryButton> {
   var _width = 0.0;
   var _height = 0.0;
+  var _loading = false;
 
-  double _getTextWidget(BuildContext context) {
+  double _getTextWidth(BuildContext context) {
     final theme = Theme.of(context);
     final fontSize = theme.textTheme.button.fontSize;
     final renderParagraph = RenderParagraph(
@@ -51,16 +54,19 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
       Duration(),
       () {
         setState(() {
-          _width = _getTextWidget(context) + 20;
+          _width = _getTextWidth(context) + 20;
           _height = 40.0;
         });
       },
     );
+    widget.loadingMonitor?.onSignal(() {
+      setState(() => _loading = false);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final theme = context.theme;
     final buttonTheme = theme.floatingActionButtonTheme;
 
     return widget.animation.wrapWidget(
@@ -71,18 +77,41 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
         elevation: buttonTheme.elevation ?? 0.1,
         child: InkWell(
           borderRadius: context.borders.circular,
-          onTap: widget.onTap,
+          onTap: () {
+            setState(() {
+              _loading = true;
+            });
+            widget.onTap();
+          },
           child: Container(
             width: _width,
             height: _height,
             alignment: Alignment.center,
-            child: Text(
-              widget.label,
-              style: theme.textTheme.button,
-            ),
+            child: _loading
+                ? BitLoading()
+                : Text(widget.label, style: theme.textTheme.button),
           ),
         ),
       ),
     );
+  }
+}
+
+class Monitor {
+  List<VoidCallback> _callbacks = [];
+
+  void onSignal(VoidCallback callback) {
+    _callbacks.add(callback);
+  }
+
+  void signal() {
+    _callbacks.forEach((element) {
+      element();
+    });
+  }
+
+  void dispose() {
+    _callbacks.clear();
+    _callbacks = null;
   }
 }

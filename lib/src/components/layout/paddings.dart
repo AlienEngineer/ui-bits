@@ -19,6 +19,25 @@ class BitSmallPadding extends StatelessWidget {
   }
 }
 
+class BitMediumPadding extends StatelessWidget {
+  final Widget child;
+  final BitEdgeInsets options;
+
+  const BitMediumPadding({
+    Key key,
+    this.child,
+    this.options = BitEdgeInsetsOptions.all,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: options.getEdgeInsets(context.sizes.medium),
+      child: child,
+    );
+  }
+}
+
 class BitEdgeInsetsOptions {
   static const BitEdgeInsets none = _NoneEdgeInsets();
   static const BitEdgeInsets all = _AllEdgeInsets();
