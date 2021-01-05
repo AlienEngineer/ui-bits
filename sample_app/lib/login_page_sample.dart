@@ -13,7 +13,6 @@ class LoginPageSample extends StatefulWidget {
 class _LoginPageSampleState extends State<LoginPageSample> {
   final AnimationOrchestrator loginCardInputs = AnimationOrchestrator();
   final AnimationOrchestrator flipAnimation = AnimationOrchestrator();
-  final Monitor monitor = Monitor();
 
   @override
   initState() {
@@ -30,9 +29,7 @@ class _LoginPageSampleState extends State<LoginPageSample> {
           triggerInput: loginCardInputs,
           onTap: () {
             print('tapped');
-            Future.delayed(Duration(seconds: 4)).then((_) => monitor.signal());
           },
-          loadingMonitor: monitor,
         ),
       ],
     );
@@ -54,12 +51,10 @@ class LoginCard extends StatelessWidget {
   final VoidCallback onTap;
   final AnimationOrchestrator triggerInput;
   final AnimationRegistry triggerFlip;
-  final Monitor loadingMonitor;
 
   const LoginCard({
     this.onTap,
     this.triggerInput,
-    this.loadingMonitor,
     this.triggerFlip = const StubRegistry(),
   });
 
@@ -99,7 +94,6 @@ class LoginCard extends StatelessWidget {
         Center(
           child: BitPrimaryButton(
             onTap: onTap,
-            loadingMonitor: loadingMonitor,
             label: 'LOGIN',
             animation: BitAnimations.scale(
               animateAfter: triggerInput.delayedShort(context),
@@ -112,8 +106,8 @@ class LoginCard extends StatelessWidget {
 }
 
 class _CredentialsFields {
-  final Field<String> user = Field<String>();
-  final Field<String> password = Field<String>();
+  final Field<String> user = Field.asText();
+  final Field<String> password = Field.asText();
 
   void dispose() {
     user.dispose();

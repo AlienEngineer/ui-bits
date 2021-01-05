@@ -15,7 +15,6 @@ class BitLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     var colorScheme = scheme ?? BitScheme.primary(context);
     return Container(
-      color: colorScheme.secondaryColor,
       child: Loading(
         indicator: BallPulseIndicator(),
         color: colorScheme.primaryColor,

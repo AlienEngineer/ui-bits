@@ -1,3 +1,10 @@
+## [0.0.15]
+- Added BitObservable
+- Field<T> should be accessed via factory method:
+  - Field.asBool()
+  - Field.asText()
+  - Field.asDouble() 
+
 ## [0.0.14]
 - disable tapping on BitPrimaryButton while loading
 
