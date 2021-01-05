@@ -2,9 +2,9 @@ name: Flutter
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -25,9 +25,3 @@ jobs:
 
       - name: Run tests
         run: flutter test
-
-      - name: Publish package
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
-        if: contains('refs/heads/master', github.ref)
-        with:
-          credential: ${{ secrets.PACKAGE_CREDENTIAL_JSON }}
