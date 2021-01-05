@@ -6,11 +6,16 @@ class LoadingPageSample extends StatelessWidget {
   Widget build(BuildContext context) {
     return BitScrollable(
       children: [
-        BitMediumPadding(
-          child: BitLoading(scheme: BitScheme.primary(context)),
+        Container(
+          color: context.theme.primaryColor,
+          child: BitMediumPadding(
+            child: BitLoading(scheme: BitScheme.primary(context)),
+          ),
         ),
-        BitMediumPadding(
-          child: BitLoading(scheme: BitScheme.secondary(context)),
+        Container(
+          child: BitMediumPadding(
+            child: BitLoading(scheme: BitScheme.secondary(context)),
+          ),
         ),
         Container(
           width: 200.0,

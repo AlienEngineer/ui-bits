@@ -13,7 +13,22 @@ void main() {
     );
 
     await tester.tap(find.byType(BitPrimaryButton));
+    await tester.pump(const Duration(seconds: 60));
 
     expect(wasCalled, isTrue);
+  });
+
+  testWidgets('tapping button displays loading', (tester) async {
+    await tester.pumpApp(
+      BitPrimaryButton(
+        label: 'myButton',
+      ),
+    );
+
+    await tester.tap(find.byType(BitPrimaryButton));
+    await tester.pump();
+
+    expect(find.byType(BitLoading), findsOneWidget);
+    await tester.pump(const Duration(seconds: 60));
   });
 }

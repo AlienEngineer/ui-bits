@@ -15,7 +15,7 @@ void main() {
     group('input: ${makeTestCase(null)['type']}', () {
       testWidgets('getting value from field returns what was entered',
           (tester) async {
-        final Field<String> field = Field<String>();
+        final Field<String> field = Field.asText();
         await pumpWidget(tester, field);
 
         await tester.enterText(find.byType(TextField), 'some text');
@@ -34,7 +34,7 @@ void main() {
       });
 
       testWidgets('field use field initial value', (tester) async {
-        final Field<String> field = Field<String>(initialValue: 'some value');
+        final Field<String> field = Field.asText(initialValue: 'some value');
 
         await pumpWidget(tester, field);
 
@@ -42,7 +42,7 @@ void main() {
       });
 
       testWidgets('field is empty when initial value is null', (tester) async {
-        final Field<String> field = Field<String>();
+        final Field<String> field = Field.asText();
 
         await pumpWidget(tester, field);
 

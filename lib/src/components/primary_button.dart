@@ -7,12 +7,10 @@ class BitPrimaryButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final BitAnimation animation;
-  final Monitor loadingMonitor;
 
   const BitPrimaryButton({
     this.label,
     this.onTap,
-    this.loadingMonitor,
     this.animation = const BitNoAnimation(),
   });
 
@@ -21,47 +19,15 @@ class BitPrimaryButton extends StatefulWidget {
 }
 
 class _BitPrimaryButtonState extends State<BitPrimaryButton> {
-  var _width = 0.0;
-  var _height = 0.0;
-  var _loading = false;
+  Field<bool> _loading = Field.asBool();
 
-  double _getTextWidth(BuildContext context) {
-    final theme = Theme.of(context);
-    final fontSize = theme.textTheme.button.fontSize;
-    final renderParagraph = RenderParagraph(
-      TextSpan(
-        text: widget.label,
-        style: TextStyle(
-          fontSize: fontSize,
-          color: theme.textTheme.button.color,
-          fontWeight: theme.textTheme.button.fontWeight,
-          letterSpacing: theme.textTheme.button.letterSpacing,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-    );
-
-    renderParagraph.layout(BoxConstraints(minWidth: 120.0));
-
-    return renderParagraph.getMinIntrinsicWidth(fontSize).ceilToDouble() + 45.0;
-  }
+  double _getTextWidth(BuildContext context) =>
+      context.getTextWidth(widget.label, context.theme.textTheme.button) + 20;
 
   @override
-  void initState() {
-    super.initState();
-    Future.delayed(
-      Duration(),
-      () {
-        setState(() {
-          _width = _getTextWidth(context) + 20;
-          _height = 40.0;
-        });
-      },
-    );
-    widget.loadingMonitor?.onSignal(() {
-      setState(() => _loading = false);
-    });
+  void dispose() {
+    super.dispose();
+    _loading.dispose();
   }
 
   @override
@@ -76,46 +42,35 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
         shadowColor: buttonTheme.backgroundColor ?? theme.primaryColor,
         elevation: buttonTheme.elevation ?? 0.1,
         child: InkWell(
-          enableFeedback: !_loading,
           borderRadius: context.borders.circular,
           onTap: () {
-            if (_loading == true) {
-              return;
-            }
-            setState(() {
-              _loading = true;
-            });
-            widget.onTap();
+            _resetLoadingOnTimeout();
+            widget.onTap?.call();
+            _loading.setValue(true);
           },
           child: Container(
-            width: _width,
-            height: _height,
+            width: _getTextWidth(context),
+            height: 40.0,
             alignment: Alignment.center,
-            child: _loading
-                ? BitLoading()
-                : Text(widget.label, style: theme.textTheme.button),
+            child: BitObservable(
+              field: _loading,
+              buildByState: {
+                true: BitLoading(),
+                false: Text(
+                  widget.label,
+                  style: theme.textTheme.button,
+                ),
+              },
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class Monitor {
-  List<VoidCallback> _callbacks = [];
-
-  void onSignal(VoidCallback callback) {
-    _callbacks.add(callback);
-  }
-
-  void signal() {
-    _callbacks.forEach((element) {
-      element();
+  void _resetLoadingOnTimeout() {
+    Future.delayed(const Duration(seconds: 30), () {
+      _loading.setValue(false);
     });
-  }
-
-  void dispose() {
-    _callbacks.clear();
-    _callbacks = null;
   }
 }
