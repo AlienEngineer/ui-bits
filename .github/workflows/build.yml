@@ -1,4 +1,4 @@
-name: Flutter
+name: Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     container:
       image:  cirrusci/flutter:latest
 
@@ -27,9 +27,3 @@ jobs:
 
       - name: Run tests
         run: flutter test
-
-      - name: Publish package
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
-        if: contains('refs/heads/master', github.ref)
-        with:
-          credential: ${{ secrets.PACKAGE_CREDENTIAL_JSON }}
