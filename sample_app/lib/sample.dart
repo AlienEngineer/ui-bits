@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_bits/ui_bits.dart';
 import 'package:provider/provider.dart';
+import 'package:ui_bits/ui_bits.dart';
 
 import 'carousel_page_sample.dart';
-import 'login_page_sample.dart';
-import 'typography_page_sample.dart';
 import 'loading_page_sample.dart';
+import 'login_page_sample.dart';
+import 'pin_pad_page_sample.dart';
+import 'typography_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -74,7 +75,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   void initState() {
-    currentWidget = LoginPageSample();
+    currentWidget = PinPadPageSample();
     super.initState();
   }
 
@@ -116,6 +117,7 @@ class _CatalogState extends State<Catalog> {
             buildTile('Carousel Cards', CarouselPageSample()),
             buildTile('Typography', TypographyPageSample()),
             buildTile('Loading', LoadingPageSample()),
+            buildTile('PinPad', PinPadPageSample()),
           ],
         ),
       ),
