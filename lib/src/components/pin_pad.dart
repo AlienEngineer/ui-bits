@@ -75,28 +75,24 @@ class BitPinPad extends StatelessWidget {
       children: [
         BitCircleButton(
           label: labels[0],
-          onTap: () {
-            field.setValue(field.getValue() + labels[0]);
-            onTap.call(labels[0]);
-          },
+          onTap: () => _handleTap(field, labels[0]),
         ),
         SizedBox(width: context.sizes.medium),
         BitCircleButton(
           label: labels[1],
-          onTap: () {
-            field.setValue(field.getValue() + labels[1]);
-            onTap.call(labels[1]);
-          },
+          onTap: () => _handleTap(field, labels[1]),
         ),
         SizedBox(width: context.sizes.medium),
         BitCircleButton(
           label: labels[2],
-          onTap: () {
-            field.setValue(field.getValue() + labels[2]);
-            onTap.call(labels[2]);
-          },
+          onTap: () => _handleTap(field, labels[2]),
         ),
       ],
     );
+  }
+
+  void _handleTap(Field<String> field, String label) {
+    field.setValue(field.getValue() + label);
+    onTap.call(label);
   }
 }
