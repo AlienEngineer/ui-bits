@@ -1,3 +1,7 @@
+
+## [0.0.16]
+- Added BitPinPad 
+
 ## [0.0.15]
 - Added BitObservable
 - Field<T> should be accessed via factory method:
