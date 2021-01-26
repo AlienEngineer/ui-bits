@@ -14,6 +14,12 @@ abstract class Field<T> {
     });
   }
 
+  void onChange(void Function(T data) callback) {
+    controller.addListener(() {
+      callback(getValue());
+    });
+  }
+
   void dispose() {
     controller.clear();
     controller.dispose();
@@ -21,36 +27,24 @@ abstract class Field<T> {
 
   T getValue();
 
-  T convertToType(String text) {
-    return text as T;
-  }
+  T convertToType(String text) => text as T;
 
-  static String convertToString<T>(T initialValue) {
-    return initialValue == null ? null : initialValue.toString();
-  }
+  static String convertToString<T>(T initialValue) =>
+      initialValue == null ? null : initialValue.toString();
 
-  void setValue(T value) {
-    controller.text = value.toString();
-  }
+  void setValue(T value) => controller.text = value.toString();
 
   @override
-  String toString() {
-    return controller.text;
-  }
+  String toString() => controller.text;
 
-  static Field<bool> asBool() {
-    return _FieldBool();
-  }
+  static Field<bool> asBool() => _FieldBool();
 
-  static Field<String> asText({String initialValue = ''}) {
-    return _FieldText(initialValue);
-  }
+  static Field<String> asText({String initialValue = ''}) =>
+      _FieldText(initialValue);
 
-  static Field<double> asDouble() {
-    return _FieldDouble();
-  }
+  static Field<double> asDouble() => _FieldDouble();
 
-  Widget onChange(Widget Function(T value) callback) {
+  Widget _onChange(Widget Function(T value) callback) {
     return _OnFieldChangeBuilder<T>(controller, callback, this);
   }
 }
@@ -116,13 +110,11 @@ class BitObservable<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (builder != null) {
-      return field.onChange(builder);
+      return field._onChange(builder);
     }
 
     if (buildByState != null) {
-      return field.onChange((value) {
-        return buildByState[value];
-      });
+      return field._onChange((value) => buildByState[value]);
     }
 
     throw UnableToBuildError();
@@ -133,7 +125,5 @@ class UnableToBuildError extends Error {
   UnableToBuildError();
 
   @override
-  String toString() {
-    return 'Unable to build with the provided builders.';
-  }
+  String toString() => 'Unable to build with the provided builders.';
 }
