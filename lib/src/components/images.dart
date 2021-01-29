@@ -34,7 +34,7 @@ class BitImageBytes implements BitImage {
   }
 }
 
-class CircleImageWidget extends StatefulWidget {
+class CircleImageWidget extends StatelessWidget {
   final double width;
   final Future<BitImage> image;
 
@@ -45,33 +45,21 @@ class CircleImageWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CircleImageWidgetState createState() => _CircleImageWidgetState();
-}
-
-class _CircleImageWidgetState extends State<CircleImageWidget> {
-  BitImage image;
-  @override
-  void initState() {
-    super.initState();
-
-    widget.image.then(
-      (value) => setState(() {
-        image = value;
-      }),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width * 0.75,
-      height: widget.width * 0.75,
-      decoration: buildBoxDecoration(),
+    return FutureBuilder<BitImage>(
+      future: image,
+      builder: (context, snapshot) {
+        return Container(
+          width: width * 0.75,
+          height: width * 0.75,
+          decoration: buildBoxDecoration(snapshot),
+        );
+      },
     );
   }
 
-  BoxDecoration buildBoxDecoration() {
-    if (image == null) {
+  BoxDecoration buildBoxDecoration(AsyncSnapshot<BitImage> snapshot) {
+    if (!snapshot.hasData) {
       return BoxDecoration();
     }
 
@@ -79,7 +67,7 @@ class _CircleImageWidgetState extends State<CircleImageWidget> {
       shape: BoxShape.circle,
       image: DecorationImage(
         fit: BoxFit.cover,
-        image: MemoryImage(image.getBytes()),
+        image: MemoryImage(snapshot.data.getBytes()),
       ),
     );
   }
