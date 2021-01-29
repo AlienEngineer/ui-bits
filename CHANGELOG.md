@@ -1,3 +1,5 @@
+## [0.0.17]
+- small fix
 
 ## [0.0.16]
 - Added BitPinPad 
