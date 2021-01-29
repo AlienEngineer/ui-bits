@@ -1,6 +1,6 @@
 name: ui_bits
 description: A UI components(bits) library
-version: 0.0.16
+version: 0.0.18
 
 homepage: https://github.com/AlienEngineer/ui-bits
 
@@ -19,7 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  pedantic: ^1.0.0
+  pedantic: ^1.9.2
 
 flutter:
 
