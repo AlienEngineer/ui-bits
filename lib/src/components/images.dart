@@ -14,7 +14,8 @@ class BitImageBase64 implements BitImage {
   BitImageBase64(this.base64Image);
 
   @override
-  Uint8List getBytes() => base64.decode(base64Image);
+  Uint8List getBytes() =>
+      base64Image != null ? base64.decode(base64Image) : Uint8List.fromList([]);
 
   @override
   String toBase64() => base64Image;
@@ -59,7 +60,7 @@ class CircleImageWidget extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration(AsyncSnapshot<BitImage> snapshot) {
-    if (!snapshot.hasData) {
+    if (!snapshot.hasData || snapshot.data.getBytes().isEmpty) {
       return BoxDecoration();
     }
 
