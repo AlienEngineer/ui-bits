@@ -2,6 +2,8 @@ import '../ui_bits_internal.dart';
 
 class BitPinPad extends StatelessWidget {
   final void Function(String) onTap;
+  final void Function() onTapBack;
+  final void Function() onTapClear;
   final Field<String> pinField;
   final BitAnimation animation;
 
@@ -10,6 +12,8 @@ class BitPinPad extends StatelessWidget {
     this.onTap = _defaultTap,
     this.pinField,
     this.animation = const BitNoAnimation(),
+    this.onTapBack,
+    this.onTapClear,
   }) : super(key: key);
 
   static void _defaultTap(String _) {}
@@ -47,7 +51,10 @@ class BitPinPad extends StatelessWidget {
               children: [
                 BitCircleButton(
                   iconData: FontAwesomeIcons.chevronLeft,
-                  onTap: () => onTap.call('back'),
+                  onTap: () {
+                    onTap.call('back');
+                    onTapBack?.call();
+                  },
                 ),
                 SizedBox(width: context.sizes.medium),
                 BitCircleButton(
@@ -63,6 +70,7 @@ class BitPinPad extends StatelessWidget {
                   onTap: () {
                     field.setValue('');
                     onTap.call('clean');
+                    onTapBack?.call();
                   },
                 ),
               ],
