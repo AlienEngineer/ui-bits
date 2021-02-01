@@ -1,3 +1,13 @@
+## [0.0.20]
+- Allow animations on BitPinPad
+- Allow animations on BitCarousel
+- All animations receive onComplete
+  
+## [0.0.19]
+- Field<T> should be accessed via factory method:
+  - Field.asInt()
+  - Field.as\<T>()
+
 ## [0.0.18]
 - small fix
 

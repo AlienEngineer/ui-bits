@@ -3,9 +3,11 @@ import 'package:ui_bits/ui_bits.dart';
 
 class BitScaleAnimation extends BitAnimation {
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   BitScaleAnimation({
-    this.animateAfter,
+    this.animateAfter = const StubRegistry(),
+    this.onComplete,
   });
 
   @override
@@ -14,6 +16,7 @@ class BitScaleAnimation extends BitAnimation {
       return BitScaleAnimationWidget(
         child: child,
         animateAfter: animateAfter,
+        onComplete: onComplete,
         duration: context.animation.long,
       );
     });
@@ -25,12 +28,14 @@ class BitScaleAnimationWidget extends StatefulWidget {
   final Duration duration;
   final Curve curve;
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   const BitScaleAnimationWidget({
     this.child,
     this.duration = const Duration(milliseconds: 1150),
     this.curve = Curves.linearToEaseOut,
     this.animateAfter = const StubRegistry(),
+    this.onComplete,
   });
 
   @override
@@ -52,7 +57,9 @@ class _BitScaleAnimationWidgetState extends State<BitScaleAnimationWidget>
     widget.animateAfter.register(() {
       animationController
         ..value = 0.0
-        ..forward();
+        ..forward().whenComplete(() {
+          widget.onComplete?.startAnimations();
+        });
     });
   }
 

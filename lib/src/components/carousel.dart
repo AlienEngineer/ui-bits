@@ -3,8 +3,12 @@ import 'package:ui_bits/ui_bits.dart';
 
 class BitCarousel extends StatefulWidget {
   final List<Widget> children;
+  final BitAnimation animation;
 
-  BitCarousel({this.children});
+  BitCarousel({
+    this.children,
+    this.animation = const BitNoAnimation(),
+  });
 
   @override
   _BitCarouselState createState() => _BitCarouselState();
@@ -25,14 +29,16 @@ class _BitCarouselState extends State<BitCarousel> {
       return Container();
     }
 
-    return SingleChildScrollView(
-      physics: ClampingScrollPhysics(),
-      controller: _controller,
-      scrollDirection: Axis.horizontal,
-      child: IntrinsicHeight(
-        child: Row(
-          children: buildChildren().toList(),
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    return widget.animation.wrapWidget(
+      child: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        controller: _controller,
+        scrollDirection: Axis.horizontal,
+        child: IntrinsicHeight(
+          child: Row(
+            children: buildChildren().toList(),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+          ),
         ),
       ),
     );

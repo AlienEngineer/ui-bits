@@ -80,8 +80,9 @@ class _BitFlipAnimationWidgetState extends State<BitFlipAnimationWidget>
     widget.animateAfter.register(() {
       controller
         ..value = 0.0
-        ..forward();
-      widget.onComplete.startAnimations();
+        ..forward().whenComplete(
+          () => widget.onComplete?.startAnimations(),
+        );
     });
   }
 
