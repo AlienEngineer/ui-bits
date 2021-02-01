@@ -1,20 +1,16 @@
 import 'package:flutter/widgets.dart';
 
+typedef void Func<T>(T data);
+
 abstract class Field<T> {
   final TextEditingController controller;
 
   Field({T initialValue})
       : controller = TextEditingController(
-          text: convertToString<T>(initialValue),
+          text: _convertToString<T>(initialValue),
         );
 
-  void printValues() {
-    controller.addListener(() {
-      print(controller.text);
-    });
-  }
-
-  void onChange(void Function(T data) callback) {
+  void onChange(Func<T> callback) {
     controller.addListener(() {
       callback(getValue());
     });
@@ -27,15 +23,17 @@ abstract class Field<T> {
 
   T getValue();
 
-  T convertToType(String text) => text as T;
-
-  static String convertToString<T>(T initialValue) =>
+  static String _convertToString<T>(T initialValue) =>
       initialValue == null ? null : initialValue.toString();
 
   void setValue(T value) => controller.text = value.toString();
 
   @override
   String toString() => controller.text;
+
+  Widget _buildOnChange(Widget Function(T value) callback) {
+    return _OnFieldChangeBuilder<T>(callback, this);
+  }
 
   static Field<bool> asBool() => _FieldBool();
 
@@ -44,9 +42,43 @@ abstract class Field<T> {
 
   static Field<double> asDouble() => _FieldDouble();
 
-  Widget _onChange(Widget Function(T value) callback) {
-    return _OnFieldChangeBuilder<T>(controller, callback, this);
+  static Field<int> asInt() => _FieldInt();
+
+  static Field<T> as<T>() => _Field<T>();
+}
+
+class _Field<T> implements Field<T> {
+  T value;
+  List<Func<T>> _callbacks = [];
+
+  @override
+  T getValue() => value;
+
+  @override
+  void setValue(T value) {
+    this.value = value;
+    _callbacks.forEach((callback) => callback(value));
   }
+
+  @override
+  Widget _buildOnChange(Widget Function(T value) callback) =>
+      _OnFieldChangeBuilder<T>(callback, this);
+
+  @override
+  TextEditingController get controller => null;
+
+  @override
+  void dispose() => _callbacks = null;
+
+  @override
+  void onChange(Func<T> callback) => _callbacks.add(callback);
+}
+
+class _FieldInt extends Field<int> {
+  _FieldInt() : super(initialValue: 0);
+
+  @override
+  int getValue() => int.parse(controller.text);
 }
 
 class _FieldDouble extends Field<double> {
@@ -71,11 +103,10 @@ class _FieldBool extends Field<bool> {
 }
 
 class _OnFieldChangeBuilder<T> extends StatefulWidget {
-  final TextEditingController controller;
   final Widget Function(T value) callback;
   final Field<T> field;
 
-  _OnFieldChangeBuilder(this.controller, this.callback, this.field);
+  _OnFieldChangeBuilder(this.callback, this.field);
 
   @override
   __OnFieldChangeBuilderState createState() => __OnFieldChangeBuilderState<T>();
@@ -85,7 +116,7 @@ class __OnFieldChangeBuilderState<T> extends State<_OnFieldChangeBuilder<T>> {
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(() {
+    widget.field.onChange((data) {
       if (mounted) setState(() {});
     });
   }
@@ -110,11 +141,11 @@ class BitObservable<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (builder != null) {
-      return field._onChange(builder);
+      return field._buildOnChange(builder);
     }
 
     if (buildByState != null) {
-      return field._onChange((value) => buildByState[value]);
+      return field._buildOnChange((value) => buildByState[value]);
     }
 
     throw UnableToBuildError();
