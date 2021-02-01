@@ -3,9 +3,11 @@ import 'package:ui_bits/src/ui_bits_internal.dart';
 
 class BitFadeInAnimation extends BitAnimation {
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   BitFadeInAnimation({
     this.animateAfter,
+    this.onComplete,
   });
 
   @override
@@ -14,6 +16,7 @@ class BitFadeInAnimation extends BitAnimation {
       return BitFadeInAnimationWidget(
         child: child,
         animateAfter: animateAfter,
+        onComplete: onComplete,
         duration: context.animation.extraShort,
       );
     });
@@ -24,11 +27,13 @@ class BitFadeInAnimationWidget extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   const BitFadeInAnimationWidget({
     this.child,
     this.duration = const Duration(milliseconds: 150),
     this.animateAfter = const StubRegistry(),
+    this.onComplete,
   });
 
   @override
@@ -55,6 +60,7 @@ class _BitFadeInAnimationWidgetState extends State<BitFadeInAnimationWidget> {
       duration: widget.duration,
       child: widget.child,
       curve: Curves.easeIn,
+      onEnd: () => widget.onComplete?.startAnimations(),
     );
   }
 }

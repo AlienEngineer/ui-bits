@@ -1,12 +1,15 @@
 import 'package:flutter/widgets.dart';
-import 'animations_orchestrator.dart';
 import 'package:ui_bits/ui_bits.dart';
+
+import 'animations_orchestrator.dart';
 
 class BitWidthAnimation implements BitAnimation {
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   BitWidthAnimation({
     this.animateAfter = const StubRegistry(),
+    this.onComplete,
   });
 
   @override
@@ -15,6 +18,7 @@ class BitWidthAnimation implements BitAnimation {
       return BitWidthAnimationWidget(
         duration: context.animation.long,
         animateAfter: animateAfter,
+        onComplete: onComplete,
         width: context.calculateCardWidth(),
         child: child,
       );
@@ -49,6 +53,7 @@ class BitWidthAnimationWidget extends StatefulWidget {
   final Curve curve;
   final Duration duration;
   final AnimationRegistry animateAfter;
+  final AnimationStarter onComplete;
 
   const BitWidthAnimationWidget({
     this.child,
@@ -58,6 +63,7 @@ class BitWidthAnimationWidget extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1150),
     this.startWidth = 48.0,
     this.animateAfter = const StubRegistry(),
+    this.onComplete,
   });
 
   @override
@@ -84,6 +90,7 @@ class _BitWidthAnimationWidgetState extends State<BitWidthAnimationWidget> {
       duration: widget.duration,
       curve: widget.interval.toInterval(widget.curve),
       child: widget.child,
+      onEnd: () => widget.onComplete?.startAnimations(),
     );
   }
 }
