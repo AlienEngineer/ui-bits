@@ -17,11 +17,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-
     return ChangeNotifierProvider<ThemeProvider>(
       create: (_) => ThemeProvider(),
       child: Builder(
@@ -31,7 +26,25 @@ class MyApp extends StatelessWidget {
               title: 'Catalog',
               theme: provider.theme,
               home: provider.themeFactory.makeHome(
-                child: Catalog(title: 'ui-bits Components Catalog'),
+                child: Builder(
+                  builder: (context) {
+                    var shortestSide = MediaQuery.of(context).size.shortestSide;
+
+                    if (shortestSide > 600) {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.landscapeRight,
+                        DeviceOrientation.landscapeLeft,
+                      ]);
+                    } else {
+                      SystemChrome.setPreferredOrientations([
+                        DeviceOrientation.portraitUp,
+                        DeviceOrientation.portraitDown,
+                      ]);
+                    }
+
+                    return Catalog(title: 'ui-bits Components Catalog');
+                  },
+                ),
               ),
             );
           });
@@ -66,6 +79,7 @@ class Catalog extends StatefulWidget {
   final String title;
 
   Catalog({Key key, this.title}) : super(key: key);
+
   @override
   _CatalogState createState() => _CatalogState();
 }

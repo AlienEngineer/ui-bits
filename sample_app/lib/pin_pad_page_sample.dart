@@ -17,6 +17,7 @@ class PinPadPageSample extends StatelessWidget {
           ),
           SizedBox(height: context.sizes.extraLarge),
           BitPinPad(
+            animation: BitAnimations.scale(),
             pinField: pinField,
           ),
         ],

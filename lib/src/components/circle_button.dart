@@ -30,8 +30,8 @@ class BitCircleButton extends StatelessWidget {
           borderRadius: context.borders.circular,
           onTap: () => onTap?.call(),
           child: Container(
-            width: 40.0,
-            height: 40.0,
+            width: 60.0,
+            height: 60.0,
             alignment: Alignment.center,
             child: child,
           ),

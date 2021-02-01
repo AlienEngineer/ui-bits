@@ -113,9 +113,4 @@ class _CredentialsFields {
     user.dispose();
     password.dispose();
   }
-
-  void print() {
-    user.printValues();
-    password.printValues();
-  }
 }
