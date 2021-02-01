@@ -3,19 +3,23 @@ import '../ui_bits_internal.dart';
 class BitPinPad extends StatelessWidget {
   final void Function(String) onTap;
   final Field<String> pinField;
+  final BitAnimation animation;
 
   const BitPinPad({
     Key key,
     this.onTap = _defaultTap,
     this.pinField,
+    this.animation = const BitNoAnimation(),
   }) : super(key: key);
 
   static void _defaultTap(String _) {}
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _makeRows(context, this.pinField ?? Field.asText()),
+    return animation.wrapWidget(
+      child: Column(
+        children: _makeRows(context, this.pinField ?? Field.asText()),
+      ),
     );
   }
 
