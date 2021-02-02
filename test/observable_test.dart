@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ui_bits/src/components/components.dart';
 
@@ -24,6 +25,23 @@ void main() {
   }
 
   group(Field, () {
+    testWidgets('changing a int field triggers the observable build',
+        (tester) async {
+      var field = Field.asInt();
+      await tester.pumpWidget(BitObservable<int>(
+        field: field,
+        buildByState: {
+          0: Container(key: Key("0")),
+        },
+      ));
+
+      field.setValue(1);
+      await tester.pump();
+
+      expect(find.byType(Container), findsOneWidget);
+      expect(find.byKey(Key("0")), findsNothing);
+    });
+
     testWidgets('changing a int field triggers the observable build',
         (tester) async {
       var field = Field.asInt();

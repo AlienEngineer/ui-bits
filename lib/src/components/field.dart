@@ -122,9 +122,8 @@ class __OnFieldChangeBuilderState<T> extends State<_OnFieldChangeBuilder<T>> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.callback(widget.field.getValue());
-  }
+  Widget build(BuildContext context) =>
+      widget.callback(widget.field.getValue()) ?? Container();
 }
 
 class BitObservable<T> extends StatelessWidget {
@@ -141,14 +140,20 @@ class BitObservable<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (builder != null) {
-      return field._buildOnChange(builder);
+      var result = field._buildOnChange(builder);
+      if (result != null) {
+        return result;
+      }
     }
 
     if (buildByState != null) {
-      return field._buildOnChange((value) => buildByState[value]);
+      var result = field._buildOnChange((value) => buildByState[value]);
+      if (result != null) {
+        return result;
+      }
     }
 
-    throw UnableToBuildError();
+    return Container();
   }
 }
 
