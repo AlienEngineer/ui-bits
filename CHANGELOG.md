@@ -1,4 +1,6 @@
 ## [0.0.20]
+- Added BitFutureDataBuilder
+- default builders with Container()
 - Allow animations on BitPinPad
 - Allow animations on BitCarousel
 - All animations receive onComplete
