@@ -8,7 +8,7 @@ void main() {
     var wasCalled = false;
     await tester.pumpApp(
       BitPrimaryButton(
-        onTap: (field) => wasCalled = true,
+        onTap: (loading) => wasCalled = true,
         label: 'myButton',
       ),
     );
