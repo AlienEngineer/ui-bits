@@ -3,9 +3,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_bits/src/ui_bits_internal.dart';
 
+abstract class LoadingStopper {
+  void stopLoading();
+}
+
 class BitPrimaryButton extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
+  final void Function(LoadingStopper) onTap;
   final BitAnimation animation;
 
   const BitPrimaryButton({
@@ -18,7 +22,8 @@ class BitPrimaryButton extends StatefulWidget {
   _BitPrimaryButtonState createState() => _BitPrimaryButtonState();
 }
 
-class _BitPrimaryButtonState extends State<BitPrimaryButton> {
+class _BitPrimaryButtonState extends State<BitPrimaryButton>
+    implements LoadingStopper {
   Field<bool> _loading = Field.asBool();
 
   double _getTextWidth(BuildContext context) =>
@@ -45,8 +50,8 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
           borderRadius: context.borders.circular,
           onTap: () {
             _resetLoadingOnTimeout();
-            widget.onTap?.call();
             _loading.setValue(true);
+            widget.onTap?.call(this);
           },
           child: Container(
             width: _getTextWidth(context),
@@ -69,8 +74,12 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
   }
 
   void _resetLoadingOnTimeout() {
-    Future.delayed(const Duration(seconds: 30), () {
-      _loading.setValue(false);
-    });
+    Future.delayed(
+      const Duration(seconds: 30),
+      () => stopLoading(),
+    );
   }
+
+  @override
+  void stopLoading() => _loading.setValue(false);
 }

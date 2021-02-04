@@ -30,7 +30,7 @@ if [[ $line == "## [$version]" ]]; then
 fi
 
 echo "## [$version]
-- test
+- $1
 
 $(cat CHANGELOG.md)" > CHANGELOG.md
 
