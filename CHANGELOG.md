@@ -1,5 +1,5 @@
 ## [0.0.21]
-- test
+- PrimaryButton onTap receives a LoadingStopper
 
 ## [0.0.20]
 - Added BitFutureDataBuilder
