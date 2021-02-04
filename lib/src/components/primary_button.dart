@@ -5,7 +5,7 @@ import 'package:ui_bits/src/ui_bits_internal.dart';
 
 class BitPrimaryButton extends StatefulWidget {
   final String label;
-  final VoidCallback onTap;
+  final void Function(Field<bool>) onTap;
   final BitAnimation animation;
 
   const BitPrimaryButton({
@@ -45,8 +45,8 @@ class _BitPrimaryButtonState extends State<BitPrimaryButton> {
           borderRadius: context.borders.circular,
           onTap: () {
             _resetLoadingOnTimeout();
-            widget.onTap?.call();
             _loading.setValue(true);
+            widget.onTap?.call(_loading);
           },
           child: Container(
             width: _getTextWidth(context),
