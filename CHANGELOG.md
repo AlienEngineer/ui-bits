@@ -1,3 +1,6 @@
+## [0.0.22]
+- added NullValue and HasValue builders
+
 ## [0.0.21]
 - PrimaryButton onTap receives a LoadingStopper
 

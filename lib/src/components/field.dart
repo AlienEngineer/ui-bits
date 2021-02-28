@@ -130,11 +130,15 @@ class BitObservable<T> extends StatelessWidget {
   final Field<T> field;
   final Widget Function(T value) builder;
   final Map<T, StatelessWidget> buildByState;
+  final Widget Function(T value) hasValue;
+  final Widget Function() nullValue;
 
   BitObservable({
     this.field,
     this.builder,
     this.buildByState,
+    this.hasValue,
+    this.nullValue,
   });
 
   @override
@@ -148,6 +152,15 @@ class BitObservable<T> extends StatelessWidget {
 
     if (buildByState != null) {
       var result = field._buildOnChange((value) => buildByState[value]);
+      if (result != null) {
+        return result;
+      }
+    }
+
+    if (hasValue != null) {
+      var result = field._buildOnChange((value) {
+        return value != null ? hasValue(value) : nullValue?.call();
+      });
       if (result != null) {
         return result;
       }

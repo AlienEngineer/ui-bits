@@ -93,7 +93,12 @@ class LoginCard extends StatelessWidget {
         SizedBox(height: context.sizes.small),
         Center(
           child: BitPrimaryButton(
-            onTap: onTap,
+            onTap: (loading) {
+              onTap();
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                loading.stopLoading();
+              });
+            },
             label: 'LOGIN',
             animation: BitAnimations.scale(
               animateAfter: triggerInput.delayedShort(context),
