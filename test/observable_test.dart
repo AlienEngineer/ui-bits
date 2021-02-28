@@ -62,6 +62,46 @@ void main() {
 
       assertValueChange(field, TestModel(1, 'test'));
     });
+    testWidgets(
+        'changing a TModel field triggers the observable build on HasValue',
+        (tester) async {
+      var field = Field.as<TestModel>();
+      await tester.pumpWidget(BitObservable<TestModel>(
+        field: field,
+        hasValue: (value) {
+          incomingValue = value;
+          return Container();
+        },
+      ));
+
+      field.setValue(TestModel(1, 'test'));
+      await tester.pump();
+
+      assertValueChange(field, TestModel(1, 'test'));
+    });
+    testWidgets(
+        'changing a TModel field triggers the observable build on nullValue',
+        (tester) async {
+      var wasNullCalled = false;
+      var field = Field.as<TestModel>();
+      await tester.pumpWidget(BitObservable<TestModel>(
+        field: field,
+        nullValue: () {
+          wasNullCalled = true;
+          return Container();
+        },
+        hasValue: (value) {
+          incomingValue = value;
+          return Container();
+        },
+      ));
+
+      field.setValue(TestModel(1, 'test'));
+      await tester.pump();
+
+      expect(wasNullCalled, isTrue);
+      assertValueChange(field, TestModel(1, 'test'));
+    });
   });
 }
 
