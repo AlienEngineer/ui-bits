@@ -1,4 +1,5 @@
 ## [0.0.23]
+- remove deprecated upper bound version
 - removed dispose
 
 ## [0.0.22]
