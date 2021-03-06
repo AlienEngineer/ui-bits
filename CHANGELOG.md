@@ -1,3 +1,6 @@
+## [0.0.23]
+- removed dispose
+
 ## [0.0.22]
 - added NullValue and HasValue builders
 
