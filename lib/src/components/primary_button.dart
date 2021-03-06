@@ -24,16 +24,10 @@ class BitPrimaryButton extends StatefulWidget {
 
 class _BitPrimaryButtonState extends State<BitPrimaryButton>
     implements LoadingStopper {
-  Field<bool> _loading = Field.asBool();
+  final Field<bool> _loading = Field.asBool();
 
   double _getTextWidth(BuildContext context) =>
       context.getTextWidth(widget.label, context.theme.textTheme.button) + 20;
-
-  @override
-  void dispose() {
-    super.dispose();
-    _loading.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
