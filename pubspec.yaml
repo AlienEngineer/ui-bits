@@ -1,6 +1,6 @@
 name: ui_bits
 description: A UI components(bits) library
-version: 0.0.25
+version: 0.0.24
 
 homepage: https://github.com/AlienEngineer/ui-bits
 
@@ -12,12 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  loading:
-    git:
-      url: git://github.com/leonzone/loading.git
-      path: loading
-      ref: 8f5a63f
-
+  loading: ^1.0.2
   font_awesome_flutter: ^8.11.0
 
 dev_dependencies:

@@ -1,6 +1,3 @@
-## [0.0.25]
-- fix for loading lib
-
 ## [0.0.24]
 - loading on BitFutureDataBuilder
 
