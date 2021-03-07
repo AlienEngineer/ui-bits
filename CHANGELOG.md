@@ -1,3 +1,6 @@
+## [0.0.25]
+- fixed color and size
+
 ## [0.0.24]
 - loading on BitFutureDataBuilder
 
