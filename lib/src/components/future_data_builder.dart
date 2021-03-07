@@ -19,7 +19,11 @@ class BitFutureDataBuilder<T> extends StatelessWidget {
           return onData.call(snapshot.data) ?? Container();
         }
 
-        return BitLoading();
+        return Container(
+          child: BitMediumPadding(
+            child: BitLoading(scheme: BitScheme.secondary(context)),
+          ),
+        );
       },
     );
   }
