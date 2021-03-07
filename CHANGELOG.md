@@ -1,3 +1,6 @@
+## [0.0.24]
+- loading on BitFutureDataBuilder
+
 ## [0.0.23]
 - remove deprecated upper bound version
 - removed dispose

@@ -19,9 +19,7 @@ class BitFutureDataBuilder<T> extends StatelessWidget {
           return onData.call(snapshot.data) ?? Container();
         }
 
-        return Container(
-          child: Text('no data'),
-        );
+        return BitLoading();
       },
     );
   }
