@@ -1,3 +1,6 @@
+## [0.0.26]
+- implemente BitCalendar via SyncFusion
+
 ## [0.0.25]
 - fixed color and size
 
