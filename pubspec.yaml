@@ -14,7 +14,6 @@ dependencies:
 
   loading: ^1.0.2
   font_awesome_flutter: ^8.11.0
-  intl: ^0.17.0
   syncfusion_flutter_calendar: ^18.4.47
 
 dev_dependencies:
