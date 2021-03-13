@@ -6,17 +6,23 @@ class BitInputTextField extends StatelessWidget {
   final FieldLabels messages;
   final Field<String> field;
   final BitAnimation animation;
+  final bool enabled;
+  final VoidCallback onTap;
 
   const BitInputTextField(
     this.messages, {
     this.field,
     this.animation = const BitNoAnimation(),
+    this.enabled = true,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return animation.wrapWidget(
       child: TextFormField(
+        onTap: onTap,
+        enabled: enabled,
         controller: field?.controller,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(

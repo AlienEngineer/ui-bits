@@ -9,6 +9,7 @@ import 'loading_page_sample.dart';
 import 'login_page_sample.dart';
 import 'pin_pad_page_sample.dart';
 import 'typography_page_sample.dart';
+import 'date_picker_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -89,7 +90,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   void initState() {
-    currentWidget = PinPadPageSample();
+    currentWidget = DatePickerPageSample();
     super.initState();
   }
 
@@ -132,6 +133,7 @@ class _CatalogState extends State<Catalog> {
             buildTile('Typography', TypographyPageSample()),
             buildTile('Loading', LoadingPageSample()),
             buildTile('PinPad', PinPadPageSample()),
+            buildTile('DatePicker', DatePickerPageSample()),
           ],
         ),
       ),

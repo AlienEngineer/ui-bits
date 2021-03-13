@@ -26,6 +26,7 @@ dependencies:
 
   provider: ^4.3.3
   font_awesome_flutter: ^8.11.0
+  syncfusion_flutter_calendar: ^18.4.47
   ui_bits:
     path: ../../ui_bits
 
