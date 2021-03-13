@@ -45,6 +45,8 @@ abstract class Field<T> {
   static Field<int> asInt() => _FieldInt();
 
   static Field<T> as<T>() => _Field<T>();
+
+  static Field<DateTime> asDateTime() => _FieldDateTime();
 }
 
 class _Field<T> implements Field<T> {
@@ -79,6 +81,13 @@ class _FieldInt extends Field<int> {
 
   @override
   int getValue() => int.parse(controller.text);
+}
+
+class _FieldDateTime extends Field<DateTime> {
+  _FieldDateTime() : super(initialValue: DateTime.now());
+
+  @override
+  DateTime getValue() => DateTime.tryParse(controller.text);
 }
 
 class _FieldDouble extends Field<double> {
