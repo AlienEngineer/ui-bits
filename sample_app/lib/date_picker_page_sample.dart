@@ -24,6 +24,24 @@ class DatePickerPageSample extends StatelessWidget {
     );
   }
 
+  Meeting makeMeeting(String label, int hour, int duration, Color color) {
+    final DateTime today = DateTime.now();
+    final DateTime startTime =
+        DateTime(today.year, today.month, today.day, hour);
+    final DateTime endTime = startTime.add(Duration(hours: duration));
+
+    return Meeting(
+      eventName: label,
+      from: startTime,
+      to: endTime,
+      background: color,
+      isAllDay: false,
+      recurrence: DailyRecurrence(
+        startDate: startTime,
+      ),
+    );
+  }
+
   List<Meeting> _getDataSource() {
     final DateTime today = DateTime.now();
     final DateTime startTime =
@@ -31,28 +49,8 @@ class DatePickerPageSample extends StatelessWidget {
     final DateTime endTime = startTime.add(const Duration(hours: 2));
 
     return [
-      Meeting(
-        eventName: 'Tiago Silva\nFisioterapia',
-        from: startTime,
-        to: endTime,
-        background: Colors.blue,
-        isAllDay: false,
-        recurrence: DailyRecurrence(
-          startDate: startTime,
-        ),
-      ),
-      Meeting(
-        eventName: 'Raquel Coelho\nTerapia da Fala',
-        from: startTime,
-        to: endTime,
-        background: Colors.red,
-        isAllDay: false,
-        recurrence: DailyRecurrence(
-          startDate: startTime,
-          appStartTime: startTime,
-          appEndTime: endTime,
-        ),
-      ),
+      makeMeeting('Tiago Silva\nFisioterapia', 9, 2, Colors.blue),
+      makeMeeting('Raquel Coelho\nTerapia da Fala', 15, 1, Colors.red),
       Meeting(
         eventName: 'Diego Pereira\nFisioterapia',
         from: startTime,
