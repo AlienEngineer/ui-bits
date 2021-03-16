@@ -1,3 +1,6 @@
+## [0.0.27]
+- removed Expanded on calendar
+
 ## [0.0.26]
 - implement BitCalendar via SyncFusion
 

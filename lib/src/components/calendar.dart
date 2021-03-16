@@ -23,29 +23,27 @@ class BitCalendar extends StatefulWidget {
 class _BitCalendarState extends State<BitCalendar> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: BitFutureDataBuilder<List<Meeting>>(
-        future: widget.meetings,
-        onData: (value) => SfCalendar(
-          onTap: (calendarTapDetails) {
-            widget.onTap?.call(CalendarSlot(
-              dateTime: calendarTapDetails.date,
-              meeting: calendarTapDetails.appointments?.cast<Meeting>()?.first,
-            ));
-          },
-          view: CalendarView.workWeek,
-          timeSlotViewSettings: TimeSlotViewSettings(
-            startHour: widget.startHour,
-            endHour: widget.endHour,
-            nonWorkingDays: <int>[DateTime.sunday],
-          ),
-          dataSource: MeetingDataSource(value),
-          firstDayOfWeek: 1,
-          showNavigationArrow: true,
-          showDatePickerButton: true,
-          monthViewSettings: MonthViewSettings(
-            appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
-          ),
+    return BitFutureDataBuilder<List<Meeting>>(
+      future: widget.meetings,
+      onData: (value) => SfCalendar(
+        onTap: (calendarTapDetails) {
+          widget.onTap?.call(CalendarSlot(
+            dateTime: calendarTapDetails.date,
+            meeting: calendarTapDetails.appointments?.cast<Meeting>()?.first,
+          ));
+        },
+        view: CalendarView.workWeek,
+        timeSlotViewSettings: TimeSlotViewSettings(
+          startHour: widget.startHour,
+          endHour: widget.endHour,
+          nonWorkingDays: <int>[DateTime.sunday],
+        ),
+        dataSource: MeetingDataSource(value),
+        firstDayOfWeek: 1,
+        showNavigationArrow: true,
+        showDatePickerButton: true,
+        monthViewSettings: MonthViewSettings(
+          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
         ),
       ),
     );
