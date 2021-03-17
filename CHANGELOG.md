@@ -1,3 +1,6 @@
+## [0.0.28]
+- not showing appointment without recurrence
+
 ## [0.0.27]
 - removed Expanded on calendar
 

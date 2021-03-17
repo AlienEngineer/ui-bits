@@ -199,7 +199,7 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   String getRecurrenceRule(int index) {
-    return source[index].recurrence.toString();
+    return source[index].recurrence?.toString();
   }
 }
 

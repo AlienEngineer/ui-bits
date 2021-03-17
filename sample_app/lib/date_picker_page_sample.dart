@@ -67,6 +67,13 @@ class DatePickerPageSample extends StatelessWidget {
           ],
         ),
       ),
+      Meeting(
+        eventName: 'Diego Pereira\nFisioterapia',
+        from: DateTime(today.year, today.month, today.day, 13, 0, 0),
+        to: DateTime(today.year, today.month, today.day, 14, 0, 0),
+        background: Colors.yellow,
+        isAllDay: false,
+      ),
     ];
   }
 }
