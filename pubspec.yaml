@@ -1,6 +1,6 @@
 name: ui_bits
 description: A UI components(bits) library
-version: 0.0.28
+version: 0.0.29
 
 homepage: https://github.com/AlienEngineer/ui-bits
 
@@ -16,6 +16,7 @@ dependencies:
   font_awesome_flutter: ^8.11.0
   intl: ^0.16.0
   syncfusion_flutter_calendar: ^18.4.47
+  syncfusion_localizations: ^18.1.36
 
 dev_dependencies:
   flutter_test:

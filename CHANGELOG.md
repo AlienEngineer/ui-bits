@@ -1,3 +1,6 @@
+## [0.0.29]
+- change format for week view
+
 ## [0.0.28]
 - not showing appointment without recurrence
 
