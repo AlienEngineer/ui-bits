@@ -32,16 +32,24 @@ class _BitCalendarState extends State<BitCalendar> {
             meeting: calendarTapDetails.appointments?.cast<Meeting>()?.first,
           ));
         },
-        view: CalendarView.workWeek,
+        view: CalendarView.week,
         timeSlotViewSettings: TimeSlotViewSettings(
           startHour: widget.startHour,
           endHour: widget.endHour,
+          timeFormat: 'H:mm',
           nonWorkingDays: <int>[DateTime.sunday],
         ),
         dataSource: MeetingDataSource(value),
         firstDayOfWeek: 1,
         showNavigationArrow: true,
         showDatePickerButton: true,
+        appointmentTimeTextFormat: 'hh:mm:ss',
+        scheduleViewSettings: ScheduleViewSettings(
+          weekHeaderSettings: WeekHeaderSettings(
+            startDateFormat: 'MMMM dd, yyyy',
+            endDateFormat: 'MMMM dd, yyyy',
+          ),
+        ),
         monthViewSettings: MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
         ),
