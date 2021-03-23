@@ -7,10 +7,18 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 class DatePickerPageSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var pinField = Field.asText();
+    var durationField = Field.as<Duration>();
+    durationField.onChange((data) {
+      print(data);
+    });
     return Container(
       child: Column(
         children: [
+          BitDurationPicker(
+            field: durationField,
+            min: const Duration(minutes: 30),
+            max: const Duration(hours: 5),
+          ),
           BitDatePicker(),
           BitCalendar(
             meetings: SynchronousFuture(_getDataSource()),
