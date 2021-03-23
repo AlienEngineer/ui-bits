@@ -1,3 +1,6 @@
+## [0.0.30]
+- Implemented BitDurationPicker
+
 ## [0.0.29]
 - change format for week view
 

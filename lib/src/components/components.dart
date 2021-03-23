@@ -22,3 +22,4 @@ export 'text_input_field.dart';
 export 'thumbnail.dart';
 export 'date_picker.dart';
 export 'calendar.dart';
+export 'duration_picker.dart';
