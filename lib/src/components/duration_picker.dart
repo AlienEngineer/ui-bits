@@ -14,12 +14,14 @@ class BitDurationPicker extends StatefulWidget {
   final Duration min;
   final Duration max;
   final DurationLocations location;
+  final void Function(Duration) onChangeEnd;
 
   BitDurationPicker({
     this.field,
     this.min = const Duration(),
     this.max = const Duration(hours: 24),
     this.location = const DurationLocations(),
+    this.onChangeEnd,
   });
 
   @override
@@ -49,6 +51,9 @@ class _BitDurationPickerState extends State<BitDurationPicker> {
         onChanged: (double value) {
           _valueField.setValue(value.toInt());
           widget.field?.setValue(_getDuration(value.round()));
+        },
+        onChangeEnd: (double value) {
+          widget.onChangeEnd.call(_getDuration(value.round()));
         },
       ),
     );

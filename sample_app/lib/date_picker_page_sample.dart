@@ -8,9 +8,7 @@ class DatePickerPageSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var durationField = Field.as<Duration>();
-    durationField.onChange((data) {
-      print(data);
-    });
+
     return Container(
       child: Column(
         children: [
@@ -18,6 +16,9 @@ class DatePickerPageSample extends StatelessWidget {
             field: durationField,
             min: const Duration(minutes: 30),
             max: const Duration(hours: 5),
+            onChangeEnd: (duration) {
+              print(duration);
+            },
           ),
           BitDatePicker(),
           BitCalendar(
