@@ -1,3 +1,6 @@
+## [0.0.31]
+- added onChangeEnd to BitDurationPicker
+
 ## [0.0.30]
 - Implemented BitDurationPicker
 
