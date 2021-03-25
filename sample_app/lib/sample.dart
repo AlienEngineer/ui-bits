@@ -10,6 +10,7 @@ import 'login_page_sample.dart';
 import 'pin_pad_page_sample.dart';
 import 'typography_page_sample.dart';
 import 'date_picker_page_sample.dart';
+import 'inputs_page_sample.dart';
 
 void main() {
   runApp(MyApp());
@@ -90,7 +91,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   void initState() {
-    currentWidget = DatePickerPageSample();
+    currentWidget = InputsPageSample();
     super.initState();
   }
 

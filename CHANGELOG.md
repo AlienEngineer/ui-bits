@@ -1,3 +1,9 @@
+## [0.0.32]
+- added BitCheckbox
+- added BitOrientation
+  - BitTopOrientation
+  - BitLeftOrientation
+
 ## [0.0.31]
 - added onChangeEnd to BitDurationPicker
 
