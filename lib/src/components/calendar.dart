@@ -271,11 +271,13 @@ class CalendarSlot {
   CalendarSlot({
     DateTime dateTime,
     Meeting meeting,
-  })  : this.meeting = _resetDateTimes(meeting, _getDate(dateTime)),
-        this.dateTime = _getDate(dateTime);
+  })  : this.meeting = _resetDateTimes(meeting, _getDate(dateTime, meeting)),
+        this.dateTime = _getDate(dateTime, meeting);
 
-  static DateTime _getDate(DateTime dateTime) =>
-      DateTime(dateTime.year, dateTime.month, dateTime.day);
+  static DateTime _getDate(DateTime dateTime, Meeting meeting) =>
+      meeting == null
+          ? dateTime
+          : DateTime(dateTime.year, dateTime.month, dateTime.day);
 
   static Meeting _resetDateTimes(Meeting meeting, DateTime dateTime) {
     if (meeting == null) {

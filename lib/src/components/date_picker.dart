@@ -34,7 +34,7 @@ class BitDatePicker extends StatelessWidget {
       },
       child: BitInputTextField(
         FieldLabels(
-          label: 'Pick a data',
+          label: 'Pick a date',
           icon: FontAwesomeIcons.calendar,
         ),
         field: dateText,

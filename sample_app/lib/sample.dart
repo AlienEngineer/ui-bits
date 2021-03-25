@@ -91,7 +91,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   void initState() {
-    currentWidget = InputsPageSample();
+    currentWidget = DatePickerPageSample();
     super.initState();
   }
 
@@ -135,6 +135,7 @@ class _CatalogState extends State<Catalog> {
             buildTile('Loading', LoadingPageSample()),
             buildTile('PinPad', PinPadPageSample()),
             buildTile('DatePicker', DatePickerPageSample()),
+            buildTile('inputs', InputsPageSample()),
           ],
         ),
       ),
