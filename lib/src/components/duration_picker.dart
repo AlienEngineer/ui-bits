@@ -53,7 +53,7 @@ class _BitDurationPickerState extends State<BitDurationPicker> {
           widget.field?.setValue(_getDuration(value.round()));
         },
         onChangeEnd: (double value) {
-          widget.onChangeEnd.call(_getDuration(value.round()));
+          widget.onChangeEnd?.call(_getDuration(value.round()));
         },
       ),
     );
