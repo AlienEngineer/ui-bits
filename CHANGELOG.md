@@ -1,3 +1,6 @@
+## [0.0.33]
+- fixed missing onChangeEnd
+
 ## [0.0.32]
 - added BitCheckbox
 - added BitOrientation
