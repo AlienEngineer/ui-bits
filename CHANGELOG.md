@@ -1,3 +1,6 @@
+## [0.0.34]
+- CalendarSlot returns proper time on empty slot
+
 ## [0.0.33]
 - fixed missing onChangeEnd
 
