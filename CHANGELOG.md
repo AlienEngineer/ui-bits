@@ -1,3 +1,6 @@
+## [0.0.35]
+- Added BitLabel
+
 ## [0.0.34]
 - CalendarSlot returns proper time on empty slot
 

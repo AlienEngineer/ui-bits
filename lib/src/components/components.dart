@@ -24,3 +24,4 @@ export 'date_picker.dart';
 export 'calendar.dart';
 export 'duration_picker.dart';
 export 'check_box.dart';
+export 'label.dart';
