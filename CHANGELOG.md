@@ -1,4 +1,5 @@
 ## [0.0.35]
+- added initial value to Field factories
 - Added BitLabel
 
 ## [0.0.34]
