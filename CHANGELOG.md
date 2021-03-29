@@ -1,4 +1,5 @@
 ## [0.0.35]
+- added when(..) and whenHasValue(...) to Field
 - added initial value to Field factories
 - Added BitLabel
 

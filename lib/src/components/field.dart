@@ -10,6 +10,20 @@ abstract class Field<T> {
           text: _convertToString<T>(initialValue),
         );
 
+  Widget when(bool Function(T) predicate, Widget Function(T) builder) {
+    return BitObservable(
+      field: this,
+      builder: (value) {
+        if (predicate(value)) return builder(value);
+        return Container();
+      },
+    );
+  }
+
+  Widget whenHasValue(Widget Function(T) builder) {
+    return BitObservable(field: this, hasValue: builder);
+  }
+
   void onChange(Func<T> callback) {
     controller.addListener(() => callback(getValue()));
   }
