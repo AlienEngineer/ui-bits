@@ -1,15 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-typedef void Func<T>(T data);
-
-abstract class Field<T> {
-  final TextEditingController controller;
-
-  Field({T initialValue})
-      : controller = TextEditingController(
-          text: _convertToString<T>(initialValue),
-        );
-
+extension FieldExtensions<T> on Field<T> {
   Widget when(bool Function(T) predicate, Widget Function(T) builder) {
     return BitObservable(
       field: this,
@@ -23,6 +14,17 @@ abstract class Field<T> {
   Widget whenHasValue(Widget Function(T) builder) {
     return BitObservable(field: this, hasValue: builder);
   }
+}
+
+typedef void Func<T>(T data);
+
+abstract class Field<T> {
+  final TextEditingController controller;
+
+  Field({T initialValue})
+      : controller = TextEditingController(
+          text: _convertToString<T>(initialValue),
+        );
 
   void onChange(Func<T> callback) {
     controller.addListener(() => callback(getValue()));
