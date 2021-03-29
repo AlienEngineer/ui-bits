@@ -1,5 +1,21 @@
 import 'package:flutter/widgets.dart';
 
+extension FieldExtensions<T> on Field<T> {
+  Widget when(bool Function(T) predicate, Widget Function(T) builder) {
+    return BitObservable(
+      field: this,
+      builder: (value) {
+        if (predicate(value)) return builder(value);
+        return Container();
+      },
+    );
+  }
+
+  Widget whenHasValue(Widget Function(T) builder) {
+    return BitObservable(field: this, hasValue: builder);
+  }
+}
+
 typedef void Func<T>(T data);
 
 abstract class Field<T> {
