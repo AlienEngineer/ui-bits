@@ -1,5 +1,21 @@
 import 'package:flutter/widgets.dart';
 
+extension FieldExtensions<T> on Field<T> {
+  Widget when(bool Function(T) predicate, Widget Function(T) builder) {
+    return BitObservable(
+      field: this,
+      builder: (value) {
+        if (predicate(value)) return builder(value);
+        return Container();
+      },
+    );
+  }
+
+  Widget whenHasValue(Widget Function(T) builder) {
+    return BitObservable(field: this, hasValue: builder);
+  }
+}
+
 typedef void Func<T>(T data);
 
 abstract class Field<T> {
@@ -11,9 +27,7 @@ abstract class Field<T> {
         );
 
   void onChange(Func<T> callback) {
-    controller.addListener(() {
-      callback(getValue());
-    });
+    controller.addListener(() => callback(getValue()));
   }
 
   void dispose() {
@@ -35,23 +49,28 @@ abstract class Field<T> {
     return _OnFieldChangeBuilder<T>(callback, this);
   }
 
-  static Field<bool> asBool() => _FieldBool();
+  static Field<bool> asBool({bool initialValue = false}) =>
+      _FieldBool(initialValue);
 
   static Field<String> asText({String initialValue = ''}) =>
       _FieldText(initialValue);
 
-  static Field<double> asDouble() => _FieldDouble();
+  static Field<double> asDouble({double initialValue = 0.0}) =>
+      _FieldDouble(initialValue);
 
-  static Field<int> asInt() => _FieldInt();
+  static Field<int> asInt({int initialValue = 0}) => _FieldInt(initialValue);
 
-  static Field<T> as<T>() => _Field<T>();
+  static Field<DateTime> asDateTime({DateTime initialValue}) =>
+      _FieldDateTime(initialValue ?? DateTime.now());
 
-  static Field<DateTime> asDateTime() => _FieldDateTime();
+  static Field<T> as<T>({T initialValue}) => _Field<T>(initialValue);
 }
 
 class _Field<T> implements Field<T> {
   T value;
   List<Func<T>> _callbacks = [];
+
+  _Field(initialValue) : value = initialValue;
 
   @override
   T getValue() => value;
@@ -77,21 +96,21 @@ class _Field<T> implements Field<T> {
 }
 
 class _FieldInt extends Field<int> {
-  _FieldInt() : super(initialValue: 0);
+  _FieldInt(int initialValue) : super(initialValue: initialValue);
 
   @override
   int getValue() => int.parse(controller.text);
 }
 
 class _FieldDateTime extends Field<DateTime> {
-  _FieldDateTime() : super(initialValue: DateTime.now());
+  _FieldDateTime(DateTime initialValue) : super(initialValue: initialValue);
 
   @override
   DateTime getValue() => DateTime.tryParse(controller.text);
 }
 
 class _FieldDouble extends Field<double> {
-  _FieldDouble() : super(initialValue: 0.0);
+  _FieldDouble(double initialValue) : super(initialValue: initialValue);
 
   @override
   double getValue() => double.parse(controller.text);
@@ -105,7 +124,7 @@ class _FieldText extends Field<String> {
 }
 
 class _FieldBool extends Field<bool> {
-  _FieldBool() : super(initialValue: false);
+  _FieldBool(bool initialValue) : super(initialValue: initialValue);
 
   @override
   bool getValue() => controller.text.toLowerCase() == 'true';

@@ -138,12 +138,13 @@ class WeeklyRecurrence extends Recurrence {
 
   @override
   RecurrenceProperties getRecurrence() {
-    var recurrence = RecurrenceProperties();
+    var recurrence = RecurrenceProperties(
+      startDate: startDate,
+    );
     recurrence.recurrenceType = RecurrenceType.weekly;
     recurrence.interval = 1;
     recurrence.recurrenceRange =
         endDate == null ? RecurrenceRange.noEndDate : RecurrenceRange.noEndDate;
-    recurrence.startDate = startDate;
     recurrence.endDate = endDate;
     recurrence.weekDays = weekDays.map((e) => e.getWeekDay()).toList();
     return recurrence;
@@ -163,12 +164,11 @@ class DailyRecurrence extends Recurrence {
 
   @override
   RecurrenceProperties getRecurrence() {
-    var recurrence = RecurrenceProperties();
+    var recurrence = RecurrenceProperties(startDate: startDate);
     recurrence.recurrenceType = RecurrenceType.daily;
     recurrence.interval = 1;
     recurrence.recurrenceRange =
         endDate == null ? RecurrenceRange.noEndDate : RecurrenceRange.noEndDate;
-    recurrence.startDate = startDate;
     recurrence.endDate = endDate;
     return recurrence;
   }
